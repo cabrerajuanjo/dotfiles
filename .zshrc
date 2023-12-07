@@ -99,3 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="nvim ~/.zshrc"
 # alias ohmyzsh="nvim ~/.oh-my-zsh"
+for config_file ("$HOME/.config/zsh"/*.zsh(N)); do
+  source "$config_file"
+done
+unset config_file
