@@ -1,0 +1,17 @@
+[user]
+	mail = cabrera57juanjo@gmail.com
+	email = juan.terra@cencosud.com.uy
+	name = Juan Cabrera
+[init]
+	defaultBranch = main
+[color]
+	diff = true
+	ui = true
+[core]
+	editor = vim
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	unstage = restore --staged
