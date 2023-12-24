@@ -22,7 +22,6 @@ require('lazy').setup({
   'nvim-tree/nvim-web-devicons',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -39,7 +38,11 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
+  {
+    'creativenull/efmls-configs-nvim',
+    version = 'v1.x.x', -- version is optional, but recommended
+    dependencies = { 'neovim/nvim-lspconfig' },
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -57,7 +60,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -150,8 +153,6 @@ require('lazy').setup({
       options = {
         icons_enabled = true,
         theme = 'auto',
-        -- component_separators = { left = '?', right = '?'},
-        -- section_separators = { left = '?', right = '?'},
         disabled_filetypes = {
           statusline = {},
           winbar = {},
@@ -166,18 +167,18 @@ require('lazy').setup({
         }
       },
       sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
       },
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
       },
@@ -279,12 +280,12 @@ require('lazy').setup({
         server_opts_overrides = {},
       })
     end,
-  }
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
