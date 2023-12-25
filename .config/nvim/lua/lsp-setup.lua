@@ -80,10 +80,14 @@ local servers = {
   -- rust_analyzer = {},
   -- Useing efm just to apply prettier_d to javascript and typescript for now
   efm = {
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'zsh', 'bash', 'sh' },
   },
   tsserver = {
     filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+  },
+
+  bashls = {
+    filetypes = { 'zsh', 'shell', 'bash' },
   },
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
@@ -132,9 +136,27 @@ local prettierd = {
   },
 }
 
+local shfmt = {
+  formatCommand = 'shfmt -ci -s -bn',
+  formatStdin = true,
+}
+
+local shellcheck = {
+  lintCommand = 'shellcheck -f gcc -x',
+  lintSource = 'shellcheck',
+  lintFormats = {
+    '%f:%l:%c: %trror: %m',
+    '%f:%l:%c: %tarning: %m',
+    '%f:%l:%c: %tote: %m',
+  },
+}
+
 local languages = {
   typescript = { prettierd },
   javascript = { prettierd },
+  zsh = { shfmt, shellcheck },
+  bash = { shfmt, shellcheck },
+  sh = { shfmt, shellcheck },
 }
 
 local efmls_config = {
