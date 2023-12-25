@@ -39,7 +39,7 @@ vim.o.termguicolors = true
 
 -- vim: ts=2 sts=2 sw=2 et
 
--- #vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -50,8 +50,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
-
-vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -67,4 +65,3 @@ vim.opt.isfname:append("@-@")
 
 
 -- vim.opt.colorcolumn = "80"
-

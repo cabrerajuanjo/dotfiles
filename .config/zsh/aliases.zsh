@@ -1,6 +1,9 @@
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 
+alias szshconfig="source ~/.zshrc"
+alias sohmyzsh="source ~/.oh-my-zsh"
+
 # Gitman
 alias gitman="node ~/Documents/Cencosud/SPID/gitman/dist/index.js"
 
