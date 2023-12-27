@@ -87,7 +87,7 @@ local servers = {
   },
 
   bashls = {
-    filetypes = { 'zsh', 'shell', 'bash' },
+    filetypes = { 'zsh', 'sh', 'bash' },
   },
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 

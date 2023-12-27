@@ -10,8 +10,8 @@ vim.defer_fn(function()
     auto_install = false,
 
     ignore_install = {},
-    sync_install= false,
-    modules= {},
+    sync_install = false,
+    modules = {},
     highlight = { enable = true },
     indent = { enable = true },
     incremental_selection = {

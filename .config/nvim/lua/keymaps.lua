@@ -68,3 +68,5 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 -- vim.keymap.set("n", "<leader><leader>", function()
 --     vim.cmd("so")
 -- end)
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")

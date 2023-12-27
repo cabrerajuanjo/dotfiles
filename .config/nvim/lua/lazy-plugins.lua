@@ -60,12 +60,19 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim',        opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
+      current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 100,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
+      },
       signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -135,7 +142,6 @@ require('lazy').setup({
       end,
     },
   },
-
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -144,7 +150,19 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
-
+  -- {
+  --   "scottmckendry/cyberdream.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("cyberdream").setup({
+  --       transparent = true,             -- enable transparent background
+  --       italic_comments = true,         -- italicize comments
+  --       hide_fillchars = true,          -- replace all fillchars with ' ' for the ultimate clean look
+  --     })
+  --     vim.cmd("colorscheme cyberdream") -- set the colorscheme
+  --   end,
+  -- },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -199,8 +217,9 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
-
+  { 'numToStr/Comment.nvim',       opts = {} },
+  -- Hide secrets
+  { 'dhulihan/vim-conceal-secrets' },
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
