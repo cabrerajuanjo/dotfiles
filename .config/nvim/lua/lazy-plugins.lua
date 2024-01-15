@@ -16,7 +16,6 @@ require('lazy').setup({
   'tpope/vim-surround',
   -- Expand CtrlXA
   'Konfekt/vim-CtrlXA',
-  'theprimeagen/harpoon',
   'mbbill/undotree',
 
   'nvim-tree/nvim-web-devicons',
@@ -150,19 +149,18 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
-  -- {
-  --   "scottmckendry/cyberdream.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("cyberdream").setup({
-  --       transparent = true,             -- enable transparent background
-  --       italic_comments = true,         -- italicize comments
-  --       hide_fillchars = true,          -- replace all fillchars with ' ' for the ultimate clean look
-  --     })
-  --     vim.cmd("colorscheme cyberdream") -- set the colorscheme
-  --   end,
-  -- },
+  {
+    "scottmckendry/cyberdream.nvim",
+    priority = 1000,
+    config = function()
+      require("cyberdream").setup({
+        transparent = false,            -- enable transparent background
+        italic_comments = true,         -- italicize comments
+        hide_fillchars = true,          -- replace all fillchars with ' ' for the ultimate clean look
+      })
+      vim.cmd("colorscheme cyberdream") -- set the colorscheme
+    end,
+  },
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -207,14 +205,14 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {},
-  },
+  -- {
+  -- Add indentation guides even on blank lines
+  -- 'lukas-reineke/indent-blankline.nvim',
+  -- Enable `lukas-reineke/indent-blankline.nvim`
+  -- See `:help ibl`
+  --   main = 'ibl',
+  --   opts = {},
+  -- },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',       opts = {} },
@@ -240,7 +238,11 @@ require('lazy').setup({
       },
     },
   },
-
+  {
+    "ThePrimeagen/harpoon",
+    branch = "master",
+    dependencies = { "nvim-lua/plenary.nvim" }
+  },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',

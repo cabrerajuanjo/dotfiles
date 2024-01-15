@@ -5,7 +5,7 @@ if [[ $# -eq 1 ]]; then
 else
 	# selected=$(find ~/cencosud ~/cencosud/spid -mindepth 1 -type d | fzf)
 	selected=$( (
-		find ~/cencosud -type d -exec sh -c 'test -d "$1"/.git' -- {} \; -print -prune 2>/dev/null
+		find ~/cencosud ~/personal -type d -exec sh -c 'test -d "$1"/.git' -- {} \; -print -prune 2>/dev/null
 		find ~/.config -type d -maxdepth 0
 	) | fzf)
 fi
