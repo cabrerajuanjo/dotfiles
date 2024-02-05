@@ -26,6 +26,13 @@ function toenvstgasume() {
 	fi
 }
 
+# VPN Connection script
+vpnconnect_path="~/cencosud/spid/utils/vpnconnect/vpnconnect.sh"
+alias uvpnconnect="${vpnconnect_path} --update-pass"
+alias cvpnconnect="${vpnconnect_path} --vpn-connect"
+alias dvpnconnect="${vpnconnect_path} --vpn-disconnect"
+alias svpnconnect="${vpnconnect_path} --vpn-status"
+
 # Git
 alias gurl='git remote get-url origin | awk -F/ "{gsub(/^git@/, \"https://\"); gsub(/\\.git$/, \"\"); gsub(/\.com:/, \".com/\"); print}"'
 

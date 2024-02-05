@@ -142,14 +142,6 @@ require('lazy').setup({
     },
   },
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
-  {
     "scottmckendry/cyberdream.nvim",
     priority = 1000,
     config = function()
@@ -159,6 +151,14 @@ require('lazy').setup({
         hide_fillchars = true,          -- replace all fillchars with ' ' for the ultimate clean look
       })
       vim.cmd("colorscheme cyberdream") -- set the colorscheme
+    end,
+  },
+  {
+    -- Theme inspired by Atom
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'onedark'
     end,
   },
   {
@@ -206,10 +206,10 @@ require('lazy').setup({
   },
 
   -- {
-  -- Add indentation guides even on blank lines
-  -- 'lukas-reineke/indent-blankline.nvim',
-  -- Enable `lukas-reineke/indent-blankline.nvim`
-  -- See `:help ibl`
+  --   -- Add indentation guides even on blank lines
+  --   'lukas-reineke/indent-blankline.nvim',
+  --   -- Enable `lukas-reineke/indent-blankline.nvim`
+  --   -- See `:help ibl`
   --   main = 'ibl',
   --   opts = {},
   -- },
@@ -288,7 +288,6 @@ require('lazy').setup({
         },
         filetypes = {
           yaml = false,
-          markdown = false,
           help = false,
           gitcommit = false,
           gitrebase = false,
