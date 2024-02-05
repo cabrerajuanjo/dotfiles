@@ -9,7 +9,7 @@ alias gitman="node ~/Documents/Cencosud/SPID/gitman/dist/index.js"
 
 # Neovim
 alias nvim="~/nvim-macos/bin/nvim"
-alias nv="~/nvim-macos/bin/nvim"
+alias n.="~/nvim-macos/bin/nvim ."
 
 # Asume role
 asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"

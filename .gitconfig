@@ -21,3 +21,11 @@
     [core]
         sshCommand = "ssh -i ~/.ssh/work_ed25519"
 
+
+[includeIf "gitdir:~/"]
+    [user]
+		email = cabrera57juanjo@gmail.com
+    [core]
+        sshCommand = "ssh -i ~/.ssh/id_rsa"
+
+
