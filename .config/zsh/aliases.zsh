@@ -29,6 +29,7 @@ function toenvstgasume() {
 # VPN Connection script
 vpnconnect_path="~/cencosud/spid/utils/vpnconnect/vpnconnect.sh"
 alias uvpnconnect="${vpnconnect_path} --update-pass"
+alias tvpnconnect="${vpnconnect_path} --update-totp"
 alias cvpnconnect="${vpnconnect_path} --vpn-connect"
 alias dvpnconnect="${vpnconnect_path} --vpn-disconnect"
 alias svpnconnect="${vpnconnect_path} --vpn-status"
