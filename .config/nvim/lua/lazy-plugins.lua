@@ -17,7 +17,6 @@ require('lazy').setup({
   -- Expand CtrlXA
   'Konfekt/vim-CtrlXA',
   'mbbill/undotree',
-
   'nvim-tree/nvim-web-devicons',
 
   -- NOTE: This is where your plugins related to LSP can be installed.

@@ -28,6 +28,7 @@ local on_attach = function(_, bufnr)
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end )
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.type_definition, '[G]oto [D]eclaration')
@@ -80,7 +81,7 @@ local servers = {
   -- rust_analyzer = {},
   -- Useing efm just to apply prettier_d to javascript and typescript for now
   efm = {
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'zsh', 'bash', 'sh' },
+    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'json' },
   },
   tsserver = {
     filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
@@ -154,6 +155,8 @@ local shellcheck = {
 local languages = {
   typescript = { prettierd },
   javascript = { prettierd },
+  json = { prettierd },
+  yaml = { prettierd },
   zsh = { shfmt, shellcheck },
   bash = { shfmt, shellcheck },
   sh = { shfmt, shellcheck },

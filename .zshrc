@@ -74,6 +74,13 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# Change zsh to vim mode
+bindkey -v
+# omz vi-mode settings
+VI_MODE_SET_CURSOR=true
+# 10ms for key sequences
+KEYTIMEOUT=1
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
