@@ -21,6 +21,7 @@ vim.defer_fn(function()
       'css',
       'scss',
       'prisma',
+      'terraform',
     },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

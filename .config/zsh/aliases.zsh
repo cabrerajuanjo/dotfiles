@@ -45,6 +45,19 @@ alias nrb="npm run build"
 alias nrt="npm run test"
 alias nrtw="npm run test:watch"
 
+# TS-Loger
+export ENABLED_LOGGER=false
+
+function togglelogger() {
+	if [ "$ENABLED_LOGGER" = false ]; then
+		export ENABLED_LOGGER=true
+		echo "Logger enabled"
+	else
+		export ENABLED_LOGGER=false
+		echo "Logger disabled"
+	fi
+}
+
 # Kubectl
 alias k="kubectl"
 alias minik="kubectl --kubeconfig ~/.kube/config.minikube"
@@ -62,6 +75,7 @@ export PATH=$PATH:$GOBIN
 
 # Helpers
 alias deleteawscredentials="unset AWS_SESSION_TOKEN && unset AWS_SECRET_ACCESS_KEY && unset AWS_ACCESS_KEY_ID"
+alias getawssecrets="aws secretsmanager get-secret-value --profile staging-reg-ccom-spid35app-tem --region us-east-1 --secret-id reg-ccom-spid35app-secret | jq .SecretString | sed 's/\\\//g'"
 
 # Dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
