@@ -21,6 +21,11 @@ require('lazy').setup({
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   {
+    "NStefan002/screenkey.nvim",
+    cmd = "Screenkey",
+    config = true,
+  },
+  {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -34,7 +39,15 @@ require('lazy').setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+      'b0o/schemastore.nvim'
     },
+  },
+  {
+    -- "carlossgv/vcurl",
+    dir = '~/personal/vcurl',
+    init = function()
+      vim.api.nvim_create_user_command("Vcurl", ":lua require('vcurl').run()", { nargs = 0 })
+    end,
   },
   {
     'creativenull/efmls-configs-nvim',
@@ -141,24 +154,18 @@ require('lazy').setup({
     },
   },
   {
-    "scottmckendry/cyberdream.nvim",
-    priority = 1000,
-    config = function()
-      require("cyberdream").setup({
-        transparent = false,            -- enable transparent background
-        italic_comments = true,         -- italicize comments
-        hide_fillchars = true,          -- replace all fillchars with ' ' for the ultimate clean look
-      })
-      vim.cmd("colorscheme cyberdream") -- set the colorscheme
-    end,
-  },
-  {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
       vim.cmd.colorscheme 'onedark'
     end,
+  },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
     -- Set lualine as statusline
@@ -203,16 +210,12 @@ require('lazy').setup({
       extensions = {}
     },
   },
-
-  -- {
-  --   -- Add indentation guides even on blank lines
-  --   'lukas-reineke/indent-blankline.nvim',
-  --   -- Enable `lukas-reineke/indent-blankline.nvim`
-  --   -- See `:help ibl`
-  --   main = 'ibl',
-  --   opts = {},
-  -- },
-
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',       opts = {} },
   -- Hide secrets
@@ -242,6 +245,18 @@ require('lazy').setup({
     branch = "master",
     dependencies = { "nvim-lua/plenary.nvim" }
   },
+
+  -- {
+  --   'nvim-treesitter/nvim-treesitter-context'
+  -- },
+  {
+    -- Add indentation guides even on blank lines
+    'lukas-reineke/indent-blankline.nvim',
+    --   -- Enable `lukas-reineke/indent-blankline.nvim`
+    --   -- See `:help ibl`
+    main = 'ibl',
+    opts = {},
+  },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -250,6 +265,7 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  { "b0o/schemastore.nvim" },
   {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',

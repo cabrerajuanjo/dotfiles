@@ -1,3 +1,4 @@
+--
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
@@ -25,7 +26,7 @@ vim.defer_fn(function()
     },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
 
     ignore_install = {},
     sync_install = false,
@@ -35,10 +36,10 @@ vim.defer_fn(function()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<c-space>',
-        node_incremental = '<c-space>',
-        scope_incremental = '<c-s>',
-        node_decremental = '<M-space>',
+        init_selection = '<space>ts',
+        node_incremental = '<space>ti',
+        scope_incremental = '<space>tc',
+        node_decremental = '<space>td',
       },
     },
     textobjects = {

@@ -5,9 +5,10 @@ alias szshconfig="source ~/.zshrc"
 alias sohmyzsh="source ~/.oh-my-zsh"
 
 # Gitman
-alias gitman="node ~/Documents/Cencosud/SPID/gitman/dist/index.js"
+alias gitman="node /Users/juanjosecabrera/cencosud/drb-cl-gitman/dist/index.js"
 
 # Neovim
+alias nvim10="~/nvim-macos-arm64/bin/nvim"
 alias nvim="~/nvim-macos/bin/nvim"
 alias n.="~/nvim-macos/bin/nvim ."
 

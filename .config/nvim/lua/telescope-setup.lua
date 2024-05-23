@@ -2,6 +2,16 @@
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--hidden",
+      "--smart-case",
+    },
     mappings = {
       i = {
         ['<C-u>'] = false,
@@ -33,6 +43,16 @@ require('telescope').setup {
         },
         n = {
           ["<C-d>"] = require("telescope.actions").delete_buffer,
+          ["<leader>w"] = function()
+            for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+              local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+              if buftype == '' then
+                vim.api.nvim_buf_call(bufnr, function()
+                  vim.cmd('w')
+                end)
+              end
+            end
+          end,
         }
       }
     }

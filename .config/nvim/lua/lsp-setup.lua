@@ -28,7 +28,7 @@ local on_attach = function(_, bufnr)
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end )
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.type_definition, '[G]oto [D]eclaration')
@@ -74,6 +74,14 @@ require('mason-lspconfig').setup()
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
+-- Vue Language Server
+local vue_typescript_plugin = require('mason-registry')
+    .get_package('vue-language-server')
+    :get_install_path()
+    .. '/node_modules/@vue/language-server'
+    .. '/node_modules/@vue/typescript-plugin'
+
+vim.lsp.set_log_level('debug')
 local servers = {
   -- clangd = {},
   -- gopls = {},
@@ -81,16 +89,32 @@ local servers = {
   -- rust_analyzer = {},
   -- Useing efm just to apply prettier_d to javascript and typescript for now
   efm = {
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx', 'json' },
+    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+  },
+  volar = {
+    filetypes = { 'vue' },
+    init_options = {
+      vue = {
+        hybridMode = false
+      }
+    },
   },
   tsserver = {
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+    init_options = {
+      -- plugins = {
+      --   {
+      --     name = "@vue/typescript-plugin",
+      --     location = vue_typescript_plugin,
+      --     languages = { 'vue', 'ts' }
+      --   },
+      -- }
+    },
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx' },
   },
 
   bashls = {
     filetypes = { 'zsh', 'sh', 'bash' },
   },
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
     Lua = {
@@ -100,6 +124,35 @@ local servers = {
       -- diagnostics = { disable = { 'missing-fields' } },
     },
   },
+  eslint = {
+    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+  },
+
+
+  yamlls = {
+    settings = {
+      yaml = {
+        schemaStore = {
+          -- You must disable built-in schemaStore support if you want to use
+          -- this plugin and its advanced options like ignore.
+          enable = false,
+          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+          url = "",
+        },
+        schemas = require("schemastore").yaml.schemas(),
+      },
+    },
+  },
+
+  jsonls = {
+    settings = {
+      json = {
+        schemas = require("schemastore").json.schemas(),
+        validate = { enable = true },
+      },
+    },
+  }
+
 }
 
 -- Setup neovim lua configuration
@@ -121,8 +174,9 @@ mason_lspconfig.setup_handlers {
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
+      init_options = (servers[server_name] or {}).init_options,
       filetypes = (servers[server_name] or {}).filetypes,
+      settings = (servers[server_name] or {}).settings,
     }
   end,
 }
