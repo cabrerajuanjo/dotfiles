@@ -5,6 +5,7 @@ require('telescope').setup {
     vimgrep_arguments = {
       "rg",
       "--color=never",
+      "--pcre2",
       "--no-heading",
       "--with-filename",
       "--line-number",
@@ -58,7 +59,10 @@ require('telescope').setup {
     }
   }
 }
-
+-- first load extension
+require("telescope").load_extension("rest")
+-- then use it, you can also use the `:Telescope rest select_env` command
+-- require("telescope").extensions.rest.select_env()
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -125,5 +129,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>se', require('telescope').extensions.rest.select_env,
+  { desc = '[S]earch RestNvim [E]nvironment' })
 
 -- vim: ts=2 sts=2 sw=2 et

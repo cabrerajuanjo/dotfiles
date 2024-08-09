@@ -57,12 +57,25 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
+
+-- vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
+
+
+vim.opt.foldcolumn = "1"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.fillchars = "fold: "
+vim.opt.foldenable = true
+vim.opt.foldlevel = 99
 
 vim.opt.scrolloff = 100
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
+vim.opt.rtp:prepend("/Users/juanjosecabrera/personal/tree-sitter-http")
 
 
 -- vim.opt.colorcolumn = "80"

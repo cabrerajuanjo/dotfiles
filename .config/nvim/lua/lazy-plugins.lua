@@ -20,6 +20,32 @@ require('lazy').setup({
   'nvim-tree/nvim-web-devicons',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
+
+  {
+    'kutiny/colors.nvim',
+    opts = {
+      enable_transparent_bg = false,
+      fallback_theme_name = 'onedark',
+      theme_list = {   -- or leave nil to use auto list
+        'onedark',
+        'citruszest'
+      },
+      hide_builtins = false,
+      border = 'double',   -- single or none
+      title = ' My Themes ',
+      width = 100,
+      height = 20,
+      title_pos = 'left',   -- left, right or center
+      callback_fn = function()
+        require('lualine').setup({})
+        require('nvim-web-devicons').refresh()
+        require('ibl').setup({})
+      end
+    },
+    init = function()
+      vim.keymap.set('n', '<leader>t', ':ShowThemes<CR>', { silent = true })
+    end
+  },
   {
     "NStefan002/screenkey.nvim",
     cmd = "Screenkey",
@@ -71,7 +97,8 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',        opts = {} },
+  -- { 'folke/which-key.nvim',        opts = {} },
+  { 'nvim-treesitter/nvim-treesitter-context' },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -102,9 +129,7 @@ require('lazy').setup({
 
         -- Navigation
         map({ 'n', 'v' }, ']c', function()
-          if vim.wo.diff then
-            return ']c'
-          end
+          if vim.wo.diff then return ']c' end
           vim.schedule(function()
             gs.next_hunk()
           end)
@@ -162,6 +187,11 @@ require('lazy').setup({
     end,
   },
   {
+    "zootedb0t/citruszest.nvim",
+    lazy = false,
+    priority = 1000,
+  },
+  {
     'stevearc/oil.nvim',
     opts = {},
     -- Optional dependencies
@@ -192,7 +222,7 @@ require('lazy').setup({
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_x = { 'rest', 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }
       },
@@ -217,7 +247,7 @@ require('lazy').setup({
     build = function() vim.fn["mkdp#util#install"]() end,
   },
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',       opts = {} },
+  { 'numToStr/Comment.nvim',                  opts = {} },
   -- Hide secrets
   { 'dhulihan/vim-conceal-secrets' },
   -- Fuzzy Finder (files, lsp, etc)
@@ -316,11 +346,126 @@ require('lazy').setup({
       })
     end,
   },
+  { 'ThePrimeagen/vim-be-good' },
+  {
+    "rhysd/conflict-marker.vim",
+    init = function()
+      -- disable the default highlight group
 
+      vim.g.conflict_marker_highlight_group = ''
+
+      -- Include text after begin and end markers
+
+      vim.g.conflict_marker_begin           = '^<<<<<<< .*$'
+
+      vim.g.conflict_marker_end             = '^>>>>>>> .*$'
+
+      vim.cmd('highlight ConflictMarkerBegin guibg=#27366')
+
+      vim.cmd('highlight ConflictMarkerOurs guibg=#2e5049')
+
+      vim.cmd('highlight ConflictMarkerTheirs guibg=#344f69')
+
+      vim.cmd('highlight ConflictMarkerEnd guibg=#2f628e')
+
+      vim.cmd('highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81')
+    end
+  },
+  {
+    "vhyrro/luarocks.nvim",
+    priority = 1000,
+    config = true,
+    opts = {
+      rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" }
+    }
+  },
+  {
+    "rest-nvim/rest.nvim",
+    ft = "http",
+    dependencies = { "luarocks.nvim" },
+    config = function()
+      require("rest-nvim").setup(
+        {
+          client = "curl",
+          env_file = "environments/[dev].env",
+          env_pattern = "\\.env$",
+          env_edit_command = "tabedit",
+          encode_url = true,
+          skip_ssl_verification = false,
+          custom_dynamic_variables = {},
+          logs = {
+            level = "info",
+            save = true,
+          },
+          result = {
+            split = {
+              horizontal = false,
+              in_place = false,
+              stay_in_current_window_after_split = true,
+            },
+            behavior = {
+              decode_url = true,
+              show_info = {
+                url = true,
+                headers = true,
+                http_info = true,
+                curl_command = true,
+              },
+              statistics = {
+                enable = true,
+                ---@see https://curl.se/libcurl/c/curl_easy_getinfo.html
+                stats = {
+                  { "total_time",      title = "Time taken:" },
+                  { "size_download_t", title = "Download size:" },
+                },
+              },
+              formatters = {
+                json = "jq",
+                html = function(body)
+                  if vim.fn.executable("tidy") == 0 then
+                    return body, { found = false, name = "tidy" }
+                  end
+                  local fmt_body = vim.fn.system({
+                    "tidy",
+                    "-i",
+                    "-q",
+                    "--tidy-mark", "no",
+                    "--show-body-only", "auto",
+                    "--show-errors", "0",
+                    "--show-warnings", "0",
+                    "-",
+                  }, body):gsub("\n$", "")
+
+                  return fmt_body, { found = true, name = "tidy" }
+                end,
+              },
+            },
+            keybinds = {
+              buffer_local = true,
+              prev = "H",
+              next = "L",
+            },
+          },
+          highlight = {
+            enable = true,
+            timeout = 750,
+          },
+          keybinds = {
+            {
+              "<localleader>rr", "<cmd>Rest run<cr>", "Run request under the cursor",
+            },
+            {
+              "<localleader>rl", "<cmd>Rest run last<cr>", "Re-run latest request",
+            },
+          }
+        }
+      )
+    end,
+  },
+  -- require 'kickstart.plugins.autoformat',
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`

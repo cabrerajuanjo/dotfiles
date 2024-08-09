@@ -17,7 +17,7 @@ asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
 alias asume="${asumerole_path}"
 alias stgasume="${asumerole_path} --profile staging"
 alias prodasume="${asumerole_path} --profile production"
-alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/Documents/Cencosud/SPID/.aws_env"
+alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/cencosud/spid/.aws_env"
 function toenvstgasume() {
 	output=$(${asumerole_path} --profile staging --print)
 	if [ $? -ne 0 ]; then
@@ -47,7 +47,7 @@ alias nrt="npm run test"
 alias nrtw="npm run test:watch"
 
 # TS-Loger
-export ENABLED_LOGGER=false
+export ENABLED_LOGGER=true
 
 function togglelogger() {
 	if [ "$ENABLED_LOGGER" = false ]; then
@@ -74,9 +74,18 @@ export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
+# Zig
+export ZIGPATH=$HOME/.zig
+export PATH=$PATH:$ZIGPATH
+
 # Helpers
 alias deleteawscredentials="unset AWS_SESSION_TOKEN && unset AWS_SECRET_ACCESS_KEY && unset AWS_ACCESS_KEY_ID"
 alias getawssecrets="aws secretsmanager get-secret-value --profile staging-reg-ccom-spid35app-tem --region us-east-1 --secret-id reg-ccom-spid35app-secret | jq .SecretString | sed 's/\\\//g'"
 
 # Dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# Deno
+export DENO_INSTALL="/Users/juanjosecabrera/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
