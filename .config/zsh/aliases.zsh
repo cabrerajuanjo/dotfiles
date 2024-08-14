@@ -88,3 +88,8 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # Deno
 export DENO_INSTALL="/Users/juanjosecabrera/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+# Redis URLS
+export REDIS_LOCAL="localhost:6379"
+export REDIS_STG="reg-ccom-spid35app-cache.zof5ju.0001.use1.cache.amazonaws.com"
+export REDIS_PROD="reg-ccom-spid35app-cache.wycuq2.0001.use1.cache.amazonaws.com"

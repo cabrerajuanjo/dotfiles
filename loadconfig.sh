@@ -11,6 +11,6 @@ ln -sf ~/dotfiles/.finicky.js ~/.finicky.js
 ln -sf ~/dotfiles/.config/kitty ~/.config
 ln -sf ~/dotfiles/.config/nvim ~/.config
 ln -sf ~/dotfiles/.config/tmux ~/.config
-# ln -sf .config/zsh ~/.config
-# ln -sf .config/omz/themes ~/.oh-my-zsh/custom
+ln -sf ~/dotfiles/.config/zsh ~/.config
+ln -sf ~/dotfiles/.config/omz/themes ~/.oh-my-zsh/custom
 
