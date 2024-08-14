@@ -1,3 +1,6 @@
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -111,10 +114,6 @@ for config_file ("$HOME/.config/zsh"/*.zsh(N)); do
 done
 unset config_file
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 eval $(/opt/homebrew/bin/brew shellenv)
 
 # bun completions
@@ -123,3 +122,8 @@ eval $(/opt/homebrew/bin/brew shellenv)
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# RUN WITH TU MEASURE LOAD TIME: time ZSH_DEBUGRC=1 zsh -i -c exit
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi

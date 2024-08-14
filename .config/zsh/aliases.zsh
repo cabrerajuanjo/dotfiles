@@ -66,8 +66,8 @@ alias minik="kubectl --kubeconfig ~/.kube/config.minikube"
 
 # # Nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # GO
 export GOPATH=$HOME/go
@@ -88,4 +88,3 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # Deno
 export DENO_INSTALL="/Users/juanjosecabrera/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
-

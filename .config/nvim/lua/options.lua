@@ -75,7 +75,5 @@ vim.opt.foldlevel = 99
 vim.opt.scrolloff = 100
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-vim.opt.rtp:prepend("/Users/juanjosecabrera/personal/tree-sitter-http")
-
 
 -- vim.opt.colorcolumn = "80"

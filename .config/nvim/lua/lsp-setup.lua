@@ -95,27 +95,27 @@ local servers = {
     filetypes = { 'vue' },
     init_options = {
       vue = {
-        hybridMode = false
+        hybridMode = true
       }
     },
   },
-  -- tsserver = {
-  --   init_options = {
-  --     -- plugins = {
-  --     --   {
-  --     --     name = "@vue/typescript-plugin",
-  --     --     location = vue_typescript_plugin,
-  --     --     languages = { 'vue', 'ts' }
-  --     --   },
-  --     -- }
-  --   },
-  --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'javascript.jsx' },
-  -- },
-  --
   vtsls = {
-    filetypes = { 'typescript',  'javascript' },
+    filetypes = { 'typescript', 'javascript', 'vue' },
     enableMoveToFileCodeAction = true,
     autoUseWorkspaceTsdk = true,
+    settings = {
+      vtsls = {
+        tsserver = {
+          globalPlugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = vue_typescript_plugin,
+              languages = { 'vue', 'ts' }
+            },
+          },
+        },
+      },
+    },
     experimental = {
       completion = {
         enableServerSideFuzzyMatch = true,

@@ -41,6 +41,9 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+-- Use node22 for Neovim
+-- vim.opt.rtp:prepend("/Users/juanjosecabrera/.nvm/versions/node/v22.6.0/bin")
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -78,6 +81,10 @@ require 'colorscheme'
 require '_harpoon'
 
 require 'oil-setup'
+
+-- Custom http tree-sitter parser
+-- vim.cmd("let $PATH = '/Users/juanjosecabrera/.nvm/versions/node/v18.20.3/bin:' . $PATH")
+vim.cmd("let $PATH = '/Users/juanjosecabrera/.nvm/versions/node/v22.6.0/bin:' . $PATH")
 
 -- require 'ibl'
 -- The line beneath this is called `modeline`. See `:help modeline`
