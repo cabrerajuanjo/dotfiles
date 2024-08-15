@@ -82,14 +82,56 @@ local vue_typescript_plugin = require('mason-registry')
     .. '/node_modules/@vue/typescript-plugin'
 
 vim.lsp.set_log_level('debug')
+-- EFM Language Server
+-- local prettierd = require('efmls-configs.formatters.prettier_d')
+local prettierd = {
+  formatCommand = 'prettierd "${INPUT}"',
+  formatStdin = true,
+  env = {
+    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('.prettierrc')),
+  },
+}
+
+local shfmt = {
+  formatCommand = 'shfmt -ci -s -bn',
+  formatStdin = true,
+}
+
+local shellcheck = {
+  lintCommand = 'shellcheck -f gcc -x',
+  lintSource = 'shellcheck',
+  lintFormats = {
+    '%f:%l:%c: %trror: %m',
+    '%f:%l:%c: %tarning: %m',
+    '%f:%l:%c: %tote: %m',
+  },
+}
+
+local efm_languages = {
+  typescript = { prettierd },
+  javascript = { prettierd },
+  markdown = { prettierd },
+  json = { prettierd },
+  yaml = { prettierd },
+  zsh = { shfmt, shellcheck },
+  bash = { shfmt, shellcheck },
+  sh = { shfmt, shellcheck },
+}
 local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- Useing efm just to apply prettier_d to javascript and typescript for now
   efm = {
-    filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+    filetypes = vim.tbl_keys(efm_languages),
+    settings = {
+      rootMarkers = { '.git/' },
+      languages = efm_languages,
+    },
+    init_options = {
+      documentFormatting = true,
+      documentRangeFormatting = true,
+    },
   },
   volar = {
     filetypes = { 'vue' },
@@ -161,8 +203,7 @@ local servers = {
         validate = { enable = true },
       },
     },
-  }
-
+  },
 }
 
 -- Setup neovim lua configuration
@@ -190,57 +231,4 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-
--- EFM Language Server
--- local prettierd = require('efmls-configs.formatters.prettier_d')
-local prettierd = {
-  formatCommand = 'prettierd "${INPUT}"',
-  formatStdin = true,
-  env = {
-    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('.prettierrc')),
-  },
-}
-
-local shfmt = {
-  formatCommand = 'shfmt -ci -s -bn',
-  formatStdin = true,
-}
-
-local shellcheck = {
-  lintCommand = 'shellcheck -f gcc -x',
-  lintSource = 'shellcheck',
-  lintFormats = {
-    '%f:%l:%c: %trror: %m',
-    '%f:%l:%c: %tarning: %m',
-    '%f:%l:%c: %tote: %m',
-  },
-}
-
-local languages = {
-  typescript = { prettierd },
-  javascript = { prettierd },
-  json = { prettierd },
-  yaml = { prettierd },
-  zsh = { shfmt, shellcheck },
-  bash = { shfmt, shellcheck },
-  sh = { shfmt, shellcheck },
-}
-
-local efmls_config = {
-  filetypes = vim.tbl_keys(languages),
-  settings = {
-    rootMarkers = { '.git/' },
-    languages = languages,
-  },
-  init_options = {
-    documentFormatting = true,
-    documentRangeFormatting = true,
-  },
-}
-
-require('lspconfig').efm.setup(vim.tbl_extend('force', efmls_config, {
-  -- Pass your custom lsp config below like on_attach and capabilities
-  -- on_attach = on_attach,
-  -- capabilities = capabilities,
-}))
 -- vim: ts=2 sts=2 sw=2 et

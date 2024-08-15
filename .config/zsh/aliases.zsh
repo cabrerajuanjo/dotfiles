@@ -28,6 +28,11 @@ function toenvstgasume() {
 }
 
 # VPN Connection script
+
+export VPN_USERNAME="jjcabrer"
+export VPN_HOST_NAME="cl.cencosud.com"
+export VPN_GROUP="2"
+export VPN_ANYCONNECT_PATH=/opt/cisco/anyconnect/bin/vpn
 vpnconnect_path="~/cencosud/spid/utils/vpnconnect/vpnconnect.sh"
 alias uvpnconnect="${vpnconnect_path} --update-pass"
 alias tvpnconnect="${vpnconnect_path} --update-totp"
