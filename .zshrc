@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="candy-customized-jj"
+ZSH_THEME="candy-customized-jj-raspi"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -114,10 +114,10 @@ for config_file ("$HOME/.config/zsh"/*.zsh(N)); do
 done
 unset config_file
 
-eval $(/opt/homebrew/bin/brew shellenv)
+# eval $(/opt/homebrew/bin/brew shellenv)
 
 # bun completions
-[ -s "/Users/juanjosecabrera/.bun/_bun" ] && source "/Users/juanjosecabrera/.bun/_bun"
+# [ -s "/Users/juanjosecabrera/.bun/_bun" ] && source "/Users/juanjosecabrera/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

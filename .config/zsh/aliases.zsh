@@ -8,9 +8,8 @@ alias sohmyzsh="source ~/.oh-my-zsh"
 alias gitman="node /Users/juanjosecabrera/cencosud/drb-cl-gitman/dist/index.js"
 
 # Neovim
-alias nvim10="~/nvim-macos-arm64/bin/nvim"
-alias nvim="~/nvim-macos/bin/nvim"
-alias n.="~/nvim-macos/bin/nvim ."
+alias nvim="~/nvim/build/bin/nvim"
+alias n.="~/nvim/build/bin/nvim ."
 
 # Asume role
 asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
@@ -64,7 +63,7 @@ alias k="kubectl"
 alias minik="kubectl --kubeconfig ~/.kube/config.minikube"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
-# # Nvm
+# Nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -93,3 +92,5 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export REDIS_LOCAL="localhost:6379"
 export REDIS_STG="reg-ccom-spid35app-cache.zof5ju.0001.use1.cache.amazonaws.com"
 export REDIS_PROD="reg-ccom-spid35app-cache.wycuq2.0001.use1.cache.amazonaws.com"
+
+export TERM=xterm
