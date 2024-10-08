@@ -60,7 +60,7 @@ vim.opt.undofile = true
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
--- vim.opt.cursorline = true
+vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 
 
