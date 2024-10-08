@@ -12,5 +12,6 @@ ln -sf ~/dotfiles/.config/kitty ~/.config
 ln -sf ~/dotfiles/.config/nvim ~/.config
 ln -sf ~/dotfiles/.config/tmux ~/.config
 ln -sf ~/dotfiles/.config/zsh ~/.config
-ln -sf ~/.oh-my-zsh/custom/themes/candy-customized-jj-raspi.zsh-theme ~/.oh-my-zsh/custom/themes/candy-customized-jj-raspi.zsh-theme
+ln -sf ~/dotfiles/.config/omz/themes/candy-customized-jj.zsh-theme ~/.oh-my-zsh/custom/themes/candy-customized-jj.zsh-theme
+ln -sf ~/dotfiles/.config/omz/themes/candy-customized-jj-raspi.zsh-theme ~/.oh-my-zsh/custom/themes/candy-customized-jj-raspi.zsh-theme
 
