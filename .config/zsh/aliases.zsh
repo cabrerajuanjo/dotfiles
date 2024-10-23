@@ -76,6 +76,7 @@ export PATH=$PATH:$GOBIN
 # Zig
 export ZIGPATH=$HOME/.zig
 export PATH=$PATH:$ZIGPATH
+export zig=$ZIGPATH/zig
 
 # Helpers
 alias deleteawscredentials="unset AWS_SESSION_TOKEN && unset AWS_SECRET_ACCESS_KEY && unset AWS_ACCESS_KEY_ID"
