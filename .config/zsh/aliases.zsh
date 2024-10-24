@@ -8,9 +8,9 @@ alias sohmyzsh="source ~/.oh-my-zsh"
 alias gitman="node /Users/juanjosecabrera/cencosud/drb-cl-gitman/dist/index.js"
 
 # Neovim
-alias nvim10="~/nvim-macos-arm64/bin/nvim"
-alias nvim="~/nvim-macos/bin/nvim"
-alias n.="~/nvim-macos/bin/nvim ."
+# alias nvim10="~/nvim-macos-arm64/bin/nvim"
+alias nvim="~/nvim-macos-arm64/bin/nvim"
+alias n.="~/nvim-macos-arm64/bin/nvim ."
 
 # Asume role
 asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"

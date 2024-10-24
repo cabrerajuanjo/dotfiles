@@ -81,7 +81,8 @@ local vue_typescript_plugin = require('mason-registry')
     .. '/node_modules/@vue/language-server'
     .. '/node_modules/@vue/typescript-plugin'
 
-vim.lsp.set_log_level('debug')
+
+vim.lsp.set_log_level('WARN')
 -- EFM Language Server
 -- local prettierd = require('efmls-configs.formatters.prettier_d')
 local prettierd = {

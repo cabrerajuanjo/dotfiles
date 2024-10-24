@@ -330,6 +330,7 @@ require('lazy').setup({
             prev = '<M-[>',
             dismiss = '<C-]>',
           },
+
         },
         filetypes = {
           yaml = false,
