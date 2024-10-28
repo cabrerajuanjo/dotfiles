@@ -71,6 +71,7 @@ vim.opt.foldtext = ""
 vim.opt.fillchars = "fold: "
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
 
 vim.opt.scrolloff = 100
 vim.opt.signcolumn = "yes"
