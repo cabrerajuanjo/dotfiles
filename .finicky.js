@@ -15,7 +15,7 @@
 //       },
 //     },
 //     {
-//       match: /^(https?:\/\/)?cencosud\.atlassian\.net.*$/,
+//       match: /^(https?:\/\/)?work\.atlassian\.net.*$/,
 //       // match: ({ url }) => url.host === "gitlab.com",
 //       // match: /.*/,
 //       browser: {
@@ -33,7 +33,7 @@ module.exports = {
             browser: "Google Chrome",
         },
         {
-            match: /^https?:\/\/cencosud\.atlassian\.net\/.*$/,
+            match: /^https?:\/\/work\.atlassian\.net\/.*$/,
             browser: "Google Chrome",
         },
         {

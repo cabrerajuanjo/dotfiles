@@ -3,10 +3,10 @@
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	# selected=$(find ~/cencosud ~/cencosud/spid -mindepth 1 -type d | fzf)
+	# selected=$(find ~/work ~/work/spid -mindepth 1 -type d | fzf)
 	selected=$( (
-		# find ~/cencosud ~/personal -maxdepth 2 -type d -not -path "*/node_modules*" -exec sh -c 'test -d "$1"/.git' -- {} \; -print -prune 2>/dev/null
-		fd --type d --max-depth 3 --exclude "node_modules" --full-path . ~/cencosud ~/personal | while read -r dir; do
+		# find ~/work ~/personal -maxdepth 2 -type d -not -path "*/node_modules*" -exec sh -c 'test -d "$1"/.git' -- {} \; -print -prune 2>/dev/null
+		fd --type d --max-depth 3 --exclude "node_modules" --full-path . ~/work ~/personal | while read -r dir; do
 			if [ -d "$dir/.git" ]; then
 				echo "$dir"
 			fi
