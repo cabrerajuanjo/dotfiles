@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	# selected=$(find ~/cencosud ~/cencosud/spid -mindepth 1 -type d | fzf)
+	# selected=$(find ~/work ~/work/spid -mindepth 1 -type d | fzf)
 	selected=$( (
 		find ~/bilpa -maxdepth 6 -type d -not -path "*/node_modules*" -exec sh -c 'test -d "$1"/.git' -- {} \; -print -prune 2>/dev/null
 		find ~/dotfiles -type d -maxdepth 0

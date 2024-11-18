@@ -14,15 +14,6 @@
 //         profile: "Default",
 //       },
 //     },
-//     {
-//       match: /^(https?:\/\/)?cencosud\.atlassian\.net.*$/,
-//       // match: ({ url }) => url.host === "gitlab.com",
-//       // match: /.*/,
-//       browser: {
-//         name: "Google Chrome",
-//         profile: "Profile 3",
-//       },
-//     },
 //   ],
 // };
 module.exports = {
@@ -30,10 +21,6 @@ module.exports = {
     handlers: [
         {
             match: /^https:\/\/gitlab.*$/,
-            browser: "Google Chrome",
-        },
-        {
-            match: /^https?:\/\/cencosud\.atlassian\.net\/.*$/,
             browser: "Google Chrome",
         },
         {

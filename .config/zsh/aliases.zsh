@@ -5,18 +5,18 @@ alias szshconfig="source ~/.zshrc"
 alias sohmyzsh="source ~/.oh-my-zsh"
 
 # Gitman
-alias gitman="node /Users/juanjosecabrera/cencosud/drb-cl-gitman/dist/index.js"
+alias gitman="node /Users/juanjosecabrera/work/drb-cl-gitman/dist/index.js"
 
 # Neovim
 alias nvim="~/neovim/build/bin/nvim"
 alias n.="~/neovim/build/bin/nvim ."
 
 # Asume role
-asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
+asumerole_path="~/work/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
 alias asume="${asumerole_path}"
 alias stgasume="${asumerole_path} --profile staging"
 alias prodasume="${asumerole_path} --profile production"
-alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/cencosud/spid/.aws_env"
+alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/work/spid/.aws_env"
 function toenvstgasume() {
 	output=$(${asumerole_path} --profile staging --print)
 	if [ $? -ne 0 ]; then
@@ -27,7 +27,7 @@ function toenvstgasume() {
 }
 
 # VPN Connection script
-vpnconnect_path="~/cencosud/spid/utils/vpnconnect/vpnconnect.sh"
+vpnconnect_path="~/work/spid/utils/vpnconnect/vpnconnect.sh"
 alias uvpnconnect="${vpnconnect_path} --update-pass"
 alias tvpnconnect="${vpnconnect_path} --update-totp"
 alias cvpnconnect="${vpnconnect_path} --vpn-connect"
