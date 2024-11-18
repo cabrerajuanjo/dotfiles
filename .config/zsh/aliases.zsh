@@ -12,11 +12,11 @@ alias nvim="~/neovim/build/bin/nvim"
 alias n.="~/neovim/build/bin/nvim ."
 
 # Asume role
-asumerole_path="~/work/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
+asumerole_path="~/cencosud/work/utils/asume-role-aws-sh/asume-role-aws.sh"
 alias asume="${asumerole_path}"
 alias stgasume="${asumerole_path} --profile staging"
 alias prodasume="${asumerole_path} --profile production"
-alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/work/spid/.aws_env"
+alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/cencosud/work/.aws_env"
 function toenvstgasume() {
 	output=$(${asumerole_path} --profile staging --print)
 	if [ $? -ne 0 ]; then
@@ -27,7 +27,7 @@ function toenvstgasume() {
 }
 
 # VPN Connection script
-vpnconnect_path="~/work/spid/utils/vpnconnect/vpnconnect.sh"
+vpnconnect_path="~/cencosud/work/utils/vpnconnect/vpnconnect.sh"
 alias uvpnconnect="${vpnconnect_path} --update-pass"
 alias tvpnconnect="${vpnconnect_path} --update-totp"
 alias cvpnconnect="${vpnconnect_path} --vpn-connect"
@@ -80,7 +80,6 @@ export zig=$ZIGPATH/zig
 
 # Helpers
 alias deleteawscredentials="unset AWS_SESSION_TOKEN && unset AWS_SECRET_ACCESS_KEY && unset AWS_ACCESS_KEY_ID"
-alias getawssecrets="aws secretsmanager get-secret-value --profile staging-reg-ccom-spid35app-tem --region us-east-1 --secret-id reg-ccom-spid35app-secret | jq .SecretString | sed 's/\\\//g'"
 
 # Dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -91,7 +90,5 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Redis URLS
 export REDIS_LOCAL="localhost:6379"
-export REDIS_STG="reg-ccom-spid35app-cache.zof5ju.0001.use1.cache.amazonaws.com"
-export REDIS_PROD="reg-ccom-spid35app-cache.wycuq2.0001.use1.cache.amazonaws.com"
 
 export TERM=xterm
