@@ -26,11 +26,11 @@
 [difftool "kitty.gui"]
     cmd = kitten diff $LOCAL $REMOTE
 
-[includeIf "gitdir:~/cencosud/"]
-    path = ~/.gitconfig-cencosud
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
 
 [includeIf "gitdir:~/personal/"]
     path = ~/.gitconfig-personal
 
-[includeIf "gitdir:~/.dotfiles/"]
+[includeIf "gitdir:~/dotfiles/"]
     path = ~/.gitconfig-personal

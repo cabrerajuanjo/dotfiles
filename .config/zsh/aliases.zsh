@@ -5,40 +5,39 @@ alias szshconfig="source ~/.zshrc"
 alias sohmyzsh="source ~/.oh-my-zsh"
 
 # Gitman
-alias gitman="node /Users/juanjosecabrera/cencosud/drb-cl-gitman/dist/index.js"
+# alias gitman="node /Users/juanjosecabrera/cencosud/drb-cl-gitman/dist/index.js"
 
 # Neovim
-# alias nvim10="~/nvim-macos-arm64/bin/nvim"
-alias nvim="~/nvim-macos-arm64/bin/nvim"
-alias n.="~/nvim-macos-arm64/bin/nvim ."
+alias nvim="/snap/bin/nvim"
+alias n.="/snap/bin/nvim ."
 
 # Asume role
-asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
-alias asume="${asumerole_path}"
-alias stgasume="${asumerole_path} --profile staging"
-alias prodasume="${asumerole_path} --profile production"
-alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/cencosud/spid/.aws_env"
-function toenvstgasume() {
-	output=$(${asumerole_path} --profile staging --print)
-	if [ $? -ne 0 ]; then
-		echo "An error has occurred."
-	else
-		source <(echo "$(echo $output | grep "." | tail -n3)")
-	fi
-}
+# asumerole_path="~/cencosud/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
+# alias asume="${asumerole_path}"
+# alias stgasume="${asumerole_path} --profile staging"
+# alias prodasume="${asumerole_path} --profile production"
+# alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/cencosud/spid/.aws_env"
+# function toenvstgasume() {
+# 	output=$(${asumerole_path} --profile staging --print)
+# 	if [ $? -ne 0 ]; then
+# 		echo "An error has occurred."
+# 	else
+# 		source <(echo "$(echo $output | grep "." | tail -n3)")
+# 	fi
+# }
 
 # VPN Connection script
 
-export VPN_USERNAME="jjcabrer"
-export VPN_HOST_NAME="cl.cencosud.com"
-export VPN_GROUP="2"
-export VPN_ANYCONNECT_PATH=/opt/cisco/anyconnect/bin/vpn
-vpnconnect_path="~/cencosud/spid/utils/vpnconnect/vpnconnect.sh"
-alias uvpnconnect="${vpnconnect_path} --update-pass"
-alias tvpnconnect="${vpnconnect_path} --update-totp"
-alias cvpnconnect="${vpnconnect_path} --vpn-connect"
-alias dvpnconnect="${vpnconnect_path} --vpn-disconnect"
-alias svpnconnect="${vpnconnect_path} --vpn-status"
+# export VPN_USERNAME="jjcabrer"
+# export VPN_HOST_NAME="cl.cencosud.com"
+# export VPN_GROUP="2"
+# export VPN_ANYCONNECT_PATH=/opt/cisco/anyconnect/bin/vpn
+# vpnconnect_path="~/cencosud/spid/utils/vpnconnect/vpnconnect.sh"
+# alias uvpnconnect="${vpnconnect_path} --update-pass"
+# alias tvpnconnect="${vpnconnect_path} --update-totp"
+# alias cvpnconnect="${vpnconnect_path} --vpn-connect"
+# alias dvpnconnect="${vpnconnect_path} --vpn-disconnect"
+# alias svpnconnect="${vpnconnect_path} --vpn-status"
 
 # Git
 alias gurl='git remote get-url origin | awk -F/ "{gsub(/^git@/, \"https://\"); gsub(/\\.git$/, \"\"); gsub(/\.com:/, \".com/\"); print}"'
@@ -100,3 +99,6 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 export REDIS_LOCAL="localhost:6379"
 export REDIS_STG="reg-ccom-spid35app-cache.zof5ju.0001.use1.cache.amazonaws.com"
 export REDIS_PROD="reg-ccom-spid35app-cache.wycuq2.0001.use1.cache.amazonaws.com"
+
+# Vial
+alias vial="~/Vial-v0.7.1-x86_64.AppImage &"

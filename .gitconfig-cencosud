@@ -1,5 +1,0 @@
-[user]
-    email = juan.terra@cencosud.com.uy
-[core]
-    sshCommand = "ssh -i ~/.ssh/work_ed25519"
-

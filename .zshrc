@@ -73,7 +73,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -114,7 +114,7 @@ for config_file ("$HOME/.config/zsh"/*.zsh(N)); do
 done
 unset config_file
 
-eval $(/opt/homebrew/bin/brew shellenv)
+# eval $(/opt/homebrew/bin/brew shellenv)
 
 # bun completions
 [ -s "/Users/juanjosecabrera/.bun/_bun" ] && source "/Users/juanjosecabrera/.bun/_bun"
