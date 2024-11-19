@@ -6,7 +6,7 @@ else
 	# selected=$(find ~/work ~/work/spid -mindepth 1 -type d | fzf)
 	selected=$( (
 		# find ~/work ~/personal -maxdepth 2 -type d -not -path "*/node_modules*" -exec sh -c 'test -d "$1"/.git' -- {} \; -print -prune 2>/dev/null
-		fd --type d --max-depth 3 --exclude "node_modules" --full-path . ~/work ~/personal | while read -r dir; do
+		fdfind --type d --max-depth 3 --exclude "node_modules" --full-path . ~/work ~/personal | while read -r dir; do
 			if [ -d "$dir/.git" ]; then
 				echo "$dir"
 			fi
