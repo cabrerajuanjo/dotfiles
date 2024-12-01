@@ -24,7 +24,11 @@ font pango:monospace 10
 exec --no-startup-id dex --autostart --environment i3
 
 # Set keyboard distribution to us standard
-exec --no-startup-id setxkbmap us
+exec-always --no-startup-id setxkbmap "us"
+
+# Dark mode (uses gnome config)
+exec-always --no-startup-id /usr/libexec/gsd-xsettings
+
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -245,4 +249,4 @@ smart_gaps off
 #border_radius 4
 set $wallpaper forest.jpg
 # exec_always xmodmap ~/.Xmodmap
-exec_always xset r rate 300 50
+exec_always xset r rate 250 50

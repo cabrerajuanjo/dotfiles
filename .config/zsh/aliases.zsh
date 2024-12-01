@@ -75,9 +75,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # GO
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
+# export GOPATH=$HOME/go
+# export GOBIN=$GOPATH/bin
+# export PATH=$PATH:$GOBIN
 
 # Zig
 export ZIGPATH=$HOME/.zig
@@ -97,8 +97,8 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Redis URLS
 export REDIS_LOCAL="localhost:6379"
-export REDIS_STG="reg-ccom-spid35app-cache.zof5ju.0001.use1.cache.amazonaws.com"
-export REDIS_PROD="reg-ccom-spid35app-cache.wycuq2.0001.use1.cache.amazonaws.com"
+export REDIS_STG=""
+export REDIS_PROD=""
 
 # Vial
 alias vial="~/Vial-v0.7.1-x86_64.AppImage &"
