@@ -12,11 +12,11 @@ alias nvim="/snap/bin/nvim"
 alias n.="/snap/bin/nvim ."
 
 # Asume role
-# asumerole_path="~/work/spid/utils/asume-role-aws-sh/asume-role-aws.sh"
+# asumerole_path="~/work/work/utils/asume-role-aws-sh/asume-role-aws.sh"
 # alias asume="${asumerole_path}"
 # alias stgasume="${asumerole_path} --profile staging"
 # alias prodasume="${asumerole_path} --profile production"
-# alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/work/spid/.aws_env"
+# alias tofilestgasume="${asumerole_path} --profile staging --print | grep "." | tail -n3 | sed 's/export //' > ~/work/work/.aws_env"
 # function toenvstgasume() {
 # 	output=$(${asumerole_path} --profile staging --print)
 # 	if [ $? -ne 0 ]; then
@@ -28,11 +28,11 @@ alias n.="/snap/bin/nvim ."
 
 # VPN Connection script
 
-# export VPN_USERNAME="jjcabrer"
-# export VPN_HOST_NAME="cl.work.com"
-# export VPN_GROUP="2"
+# export VPN_USERNAME=""
+# export VPN_HOST_NAME=""
+# export VPN_GROUP=""
 # export VPN_ANYCONNECT_PATH=/opt/cisco/anyconnect/bin/vpn
-# vpnconnect_path="~/work/spid/utils/vpnconnect/vpnconnect.sh"
+# vpnconnect_path=""
 # alias uvpnconnect="${vpnconnect_path} --update-pass"
 # alias tvpnconnect="${vpnconnect_path} --update-totp"
 # alias cvpnconnect="${vpnconnect_path} --vpn-connect"
@@ -75,9 +75,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # GO
-# export GOPATH=$HOME/go
-# export GOBIN=$GOPATH/bin
-# export PATH=$PATH:$GOBIN
+export GOPATH=$HOME/golibs
+# export GOBIN=$HOME/go/bin
+export PATH=$PATH:$HOME/go/bin
 
 # Zig
 export ZIGPATH=$HOME/.zig
@@ -85,8 +85,6 @@ export PATH=$PATH:$ZIGPATH
 
 # Helpers
 alias deleteawscredentials="unset AWS_SESSION_TOKEN && unset AWS_SECRET_ACCESS_KEY && unset AWS_ACCESS_KEY_ID"
-# alias getawssecrets="aws secretsmanager get-secret-value --profile juanjosecabrera-stg-credentials --region us-east-1 --secret-id reg-ccom-spid35app-secret | jq .SecretString | sed 's/\\\\//g'"
-alias getawssecrets="aws secretsmanager get-secret-value --profile juanjosecabrera-stg-credentials --region us-east-1 --secret-id reg-groceries-cl-jumbo-bff-secret | jq .SecretString | sed 's/\\\\//g'"
 
 # Dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -102,3 +100,6 @@ export REDIS_PROD=""
 
 # Vial
 alias vial="~/Vial-v0.7.1-x86_64.AppImage &"
+
+# Set keyboard distribution to us standard
+setxkbmap 'us'

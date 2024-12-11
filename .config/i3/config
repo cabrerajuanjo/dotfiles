@@ -23,9 +23,6 @@ font pango:monospace 10
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-# Set keyboard distribution to us standard
-exec-always --no-startup-id setxkbmap "us"
-
 # Dark mode (uses gnome config)
 exec-always --no-startup-id /usr/libexec/gsd-xsettings
 

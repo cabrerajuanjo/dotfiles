@@ -17,7 +17,7 @@ return {
       callback_fn = function()
         require('lualine').setup({})
         require('nvim-web-devicons').refresh()
-        require('ibl').setup({})
+        -- require('ibl').setup({})
       end
     },
     init = function()
