@@ -5,16 +5,16 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
-    {     'williamboman/mason.nvim', opts = {} },
-    {     'williamboman/mason-lspconfig.nvim' , opts = {} },
-    {     'hrsh7th/cmp-nvim-lsp' , opts = {} },
+    { 'williamboman/mason.nvim',           opts = {} },
+    { 'williamboman/mason-lspconfig.nvim', opts = {} },
+    { 'hrsh7th/cmp-nvim-lsp',              opts = {} },
 
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',                 opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
-    {    'folke/neodev.nvim', opts = {} },
+    { 'folke/neodev.nvim',                 opts = {} },
     'b0o/schemastore.nvim'
   },
   config = function()
@@ -62,10 +62,10 @@ return {
     --
     -- Vue typescript plugin
     local vue_typescript_plugin = require('mason-registry')
-    .get_package('vue-language-server')
-    :get_install_path()
-    .. '/node_modules/@vue/language-server'
-    .. '/node_modules/@vue/typescript-plugin'
+        .get_package('vue-language-server')
+        :get_install_path()
+        .. '/node_modules/@vue/language-server'
+        .. '/node_modules/@vue/typescript-plugin'
 
 
     vim.lsp.set_log_level('WARN')
@@ -97,6 +97,7 @@ return {
     local efm_languages = {
       typescript = { prettierd },
       javascript = { prettierd },
+      typescriptreact = { prettierd },
       markdown = { prettierd },
       json = { prettierd },
       yaml = { prettierd },
@@ -129,7 +130,7 @@ return {
         },
       },
       vtsls = {
-        filetypes = { 'typescript', 'javascript', 'vue' },
+        filetypes = { 'typescript', 'javascript', 'vue', "typescriptreact", "typescript.tsx" },
         enableMoveToFileCodeAction = true,
         autoUseWorkspaceTsdk = true,
         settings = {

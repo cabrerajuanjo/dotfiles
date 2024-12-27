@@ -13,6 +13,8 @@ ln -sf ~/dotfiles/.config/nvim ~/.config
 ln -sf ~/dotfiles/.config/tmux ~/.config
 ln -sf ~/dotfiles/.config/zsh ~/.config
 ln -sf ~/dotfiles/.config/i3 ~/.config
+ln -sf ~/dotfiles/.config/hypr ~/.config
+ln -sf ~/dotfiles/.config/waybar ~/.config
 ln -sf ~/dotfiles/.config/omz/themes/candy-customized-jj.zsh-theme ~/.oh-my-zsh/custom/themes/candy-customized-jj.zsh-theme
 ln -sf ~/dotfiles/.config/omz/themes/candy-customized-jj-raspi.zsh-theme ~/.oh-my-zsh/custom/themes/candy-customized-jj-raspi.zsh-theme
 

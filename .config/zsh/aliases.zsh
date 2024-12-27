@@ -69,11 +69,6 @@ alias k="kubectl"
 alias minik="kubectl --kubeconfig ~/.kube/config.minikube"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
-# # Nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # GO
 export GOPATH=$HOME/golibs
 # export GOBIN=$HOME/go/bin
@@ -98,8 +93,20 @@ export REDIS_LOCAL="localhost:6379"
 export REDIS_STG=""
 export REDIS_PROD=""
 
+# # Nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Vial
 alias vial="~/Vial-v0.7.1-x86_64.AppImage &"
 
+# Django env
+alias djangoEnv="source ~/.virtualenvs/djangodev/bin/activate"
+
+# Screenshot tool Hyprshoot
+alias hyprshot="~/tools/Hyprshot/hyprshot"
+
+# nvm use default
 # Set keyboard distribution to us standard
-setxkbmap 'us'
+# setxkbmap 'us'

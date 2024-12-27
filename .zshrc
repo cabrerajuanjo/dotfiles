@@ -117,11 +117,11 @@ unset config_file
 # eval $(/opt/homebrew/bin/brew shellenv)
 
 # bun completions
-[ -s "/Users/juanjosecabrera/.bun/_bun" ] && source "/Users/juanjosecabrera/.bun/_bun"
+# [ -s "/Users/juanjosecabrera/.bun/_bun" ] && source "/Users/juanjosecabrera/.bun/_bun"
 
 # bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
 
 # RUN WITH TU MEASURE LOAD TIME: time ZSH_DEBUGRC=1 zsh -i -c exit
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
