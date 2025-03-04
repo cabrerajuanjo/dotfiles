@@ -6,7 +6,7 @@ set autoindent
 set nocompatible
 syntax on
 set history=1000
-set cursorline
+" set cursorline
 
 set scrolloff=12
 set clipboard=unnamed

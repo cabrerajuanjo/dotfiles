@@ -15,6 +15,9 @@ require 'options'
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 
+-- [[ Kickstart plugins ]]
+require 'kickstart.plugins.autoformat'
+
 
 -- [[ Configure Telescope ]]
 -- (fuzzy finder)

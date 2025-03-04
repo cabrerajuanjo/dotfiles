@@ -14,7 +14,12 @@ return {
     { 'j-hui/fidget.nvim',                 opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
-    { 'folke/neodev.nvim',                 opts = {} },
+    {
+      'creativenull/efmls-configs-nvim',
+      version = 'v1.x.x', -- version is optional, but recommended
+      dependencies = { 'neovim/nvim-lspconfig' },
+    },
+    { 'folke/neodev.nvim', opts = {} },
     'b0o/schemastore.nvim'
   },
   config = function()
@@ -79,6 +84,29 @@ return {
       },
     }
 
+    local blackdclient = {
+      formatCommand = 'blackd-client',
+      formatStdin = true,
+      rootMarkers = 'manage.py'
+    }
+
+    -- local black = {
+    --   formatCommand = 'black --quiet --fast -',
+    --   formatStdin = true,
+    --   rootMarkers = 'manage.py'
+    -- }
+
+    local black = require('efmls-configs.formatters.black')
+
+    local flake8 = require('efmls-configs.linters.flake8')
+    -- {
+    --   lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
+    --   lintSource = 'flake8',
+    --   lintStdin = true,
+    --   lintFormats = { '%f:%l:%c: %m' },
+    --   rootMarkers = 'manage.py'
+    -- }
+
     local shfmt = {
       formatCommand = 'shfmt -ci -s -bn',
       formatStdin = true,
@@ -98,6 +126,7 @@ return {
       typescript = { prettierd },
       javascript = { prettierd },
       typescriptreact = { prettierd },
+      python = { flake8, black },
       markdown = { prettierd },
       json = { prettierd },
       yaml = { prettierd },
@@ -105,6 +134,17 @@ return {
       bash = { shfmt, shellcheck },
       sh = { shfmt, shellcheck },
     }
+
+    local venv_path = os.getenv('VIRTUAL_ENV')
+    local py_path = nil
+    -- decide which python executable to use for mypy
+    if venv_path ~= nil then
+      py_path = venv_path .. "/bin/python3"
+    else
+      py_path = vim.g.python3_host_prog
+    end
+
+
     local servers = {
       -- clangd = {},
       -- gopls = {},
@@ -113,12 +153,13 @@ return {
       efm = {
         filetypes = vim.tbl_keys(efm_languages),
         settings = {
-          rootMarkers = { '.git/' },
+          rootMarkers = { '.git/', 'manage.py' },
           languages = efm_languages,
         },
         init_options = {
           documentFormatting = true,
           documentRangeFormatting = true,
+          codeAction = true,
         },
       },
       volar = {
@@ -192,6 +233,47 @@ return {
           },
         },
       },
+
+      basedpyright = {
+        settings = {
+          basedpyright = {
+            typeCheckingMode = "standard",
+            reportIncompatibleVariableOverride = false,
+            analysis = {
+              reportIncompatibleVariableOverride = false
+            }
+          },
+        }
+      },
+
+      -- pylsp = {
+      --   settings = {
+      --     pylsp = {
+      --       plugins = {
+      --         -- formatter options
+      --         -- black = { enabled = true },
+      --         -- autopep8 = { enabled = false },
+      --         -- yapf = { enabled = false },
+      --         -- linter options
+      --         -- pylint = { enabled = true, executable = "pylint" },
+      --         -- ruff = { enabled = false },
+      --         -- pyflakes = { enabled = false },
+      --         -- pycodestyle = { enabled = false },
+      --         -- type checker
+      --         pylsp_mypy = {
+      --           enabled = true,
+      --           overrides = { "--python-executable", py_path, true },
+      --           report_progress = true,
+      --           live_mode = true
+      --         },
+      --         -- auto-completion options
+      --         -- jedi_completion = { fuzzy = true },
+      --         -- import sorting
+      --         -- isort = { enabled = true },
+      --       },
+      --     },
+      --   },
+      -- }
     }
 
     -- Setup neovim lua configuration

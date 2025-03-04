@@ -34,3 +34,5 @@
 
 [includeIf "gitdir:~/dotfiles/"]
     path = ~/.gitconfig-personal
+[safe]
+	directory = /app

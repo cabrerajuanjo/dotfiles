@@ -105,7 +105,11 @@ export NVM_DIR="$HOME/.nvm"
 alias vial="~/Vial-v0.7.1-x86_64.AppImage &"
 
 # Django env
-alias djangoEnv="source ~/.virtualenvs/djangodev/bin/activate"
+alias djangoEnv="source ~/.virtualenvs/wiq-web/bin/activate"
+if [ -f ./manage.py ]; then
+    djangoEnv
+fi
+
 
 # Screenshot tool Hyprshoot
 alias hyprshot="~/tools/Hyprshot/hyprshot"
