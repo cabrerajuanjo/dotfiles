@@ -3,9 +3,6 @@ return {
   branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    -- Fuzzy Finder Algorithm which requires local dependencies to be built.
-    -- Only load if `make` is available. Make sure you have the system
-    -- requirements installed.
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       -- NOTE: If you are having trouble with this installation,
@@ -18,11 +15,7 @@ return {
   },
 
   opts = function()
-    -- first load extension
-    --
     -- require("telescope").load_extension("rest")
-    --
-    -- then use it, you can also use the `:Telescope rest select_env` command
     -- require("telescope").extensions.rest.select_env()
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
@@ -96,7 +89,6 @@ return {
     -- vim.keymap.set('n', '<leader>se', require('telescope').extensions.rest.select_env,
     -- { desc = '[S]earch RestNvim [E]nvironment' })
 
-    -- vim: ts=2 sts=2 sw=2 et
     return {
       defaults = {
         vimgrep_arguments = {

@@ -2,6 +2,8 @@
 
 # Load configuration files
 
+mkdir -p ~/.config
+
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.gitconfig-work ~/.gitconfig-work

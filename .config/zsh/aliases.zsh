@@ -8,8 +8,11 @@ alias sohmyzsh="source ~/.oh-my-zsh"
 # alias gitman="node /Users/juanjosecabrera/work/drb-cl-gitman/dist/index.js"
 
 # Neovim
-alias nvim="/snap/bin/nvim"
-alias n.="/snap/bin/nvim ."
+n11="~/nvim11/bin/nvim"
+n10="~/nvim104/bin/nvim"
+alias n11="$n11"
+alias n10="$n10"
+alias n.="$n11 ."
 
 # Asume role
 # asumerole_path="~/work/work/utils/asume-role-aws-sh/asume-role-aws.sh"

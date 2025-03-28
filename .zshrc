@@ -73,16 +73,16 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode zsh-vi-mode)
+plugins=(git zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 # Change zsh to vim mode
 bindkey -v
 # omz vi-mode settings
-VI_MODE_SET_CURSOR=true
+# VI_MODE_SET_CURSOR=true
 # 10ms for key sequences
-KEYTIMEOUT=1
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX 
 
 # User configuration
 
@@ -127,3 +127,7 @@ unset config_file
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
