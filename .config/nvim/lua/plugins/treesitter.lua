@@ -41,15 +41,6 @@ return {
             modules = {},
             highlight = { enable = true },
             indent = { enable = true },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = '<space>ts',
-                    node_incremental = '<space>ti',
-                    scope_incremental = '<space>tc',
-                    node_decremental = '<space>td',
-                },
-            },
             textobjects = {
                 select = {
                     enable = true,
@@ -64,33 +55,13 @@ return {
                         ['ic'] = '@class.inner',
                     },
                 },
-                move = {
-                    enable = true,
-                    set_jumps = true, -- whether to set jumps in the jumplist
-                    goto_next_start = {
-                        [']m'] = '@function.outer',
-                        [']]'] = '@class.outer',
-                    },
-                    goto_next_end = {
-                        [']M'] = '@function.outer',
-                        [']['] = '@class.outer',
-                    },
-                    goto_previous_start = {
-                        ['[m'] = '@function.outer',
-                        ['[['] = '@class.outer',
-                    },
-                    goto_previous_end = {
-                        ['[M'] = '@function.outer',
-                        ['[]'] = '@class.outer',
-                    },
-                },
                 swap = {
                     enable = true,
-                    -- swap_next = {
-                    --   ['<leader>a'] = '@parameter.inner',
-                    -- },
+                    swap_next = {
+                      ['<leader>sa'] = '@parameter.inner',
+                    },
                     swap_previous = {
-                        ['<leader>A'] = '@parameter.inner',
+                        ['<leader>sA'] = '@parameter.inner',
                     },
                 },
             },

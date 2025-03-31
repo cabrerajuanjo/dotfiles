@@ -3,8 +3,6 @@ return {
 		opts = {
 
 				default_file_explorer = true,
-				-- Id is automatically added at the beginning, and name at the end
-				-- See :help oil-columns
 				columns = {
 						"icon",
 						-- "permissions",
@@ -28,9 +26,9 @@ return {
 						concealcursor = "nvic",
 				},
 				-- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-				delete_to_trash = false,
+				delete_to_trash = true,
 				-- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
-				skip_confirm_for_simple_edits = false,
+				skip_confirm_for_simple_edits = true,
 				-- Selecting a new/moved/renamed file or directory will prompt you to save changes first
 				-- (:help prompt_save_on_select_new_entry)
 				prompt_save_on_select_new_entry = true,
@@ -47,7 +45,7 @@ return {
 				},
 				-- Constrain the cursor to the editable parts of the oil buffer
 				-- Set to `false` to disable, or "name" to keep it on the file names
-				constrain_cursor = "editable",
+				constrain_cursor = "name",
 				-- Set to true to watch the filesystem for changes and reload oil
 				experimental_watch_for_changes = true,
 				-- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
@@ -164,6 +162,5 @@ return {
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		lazy = false,
-		-- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
 		-- Set to false if you still want to use netrw.
 }

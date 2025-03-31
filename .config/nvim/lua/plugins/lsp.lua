@@ -7,18 +7,13 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim',           opts = {} },
     { 'williamboman/mason-lspconfig.nvim', opts = {} },
-    { 'hrsh7th/cmp-nvim-lsp',              opts = {} },
-
-    -- Useful status updates for LSP
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     { 'j-hui/fidget.nvim',                 opts = {} },
-
-    -- Additional lua configuration, makes nvim stuff amazing!
     {
       'creativenull/efmls-configs-nvim',
       version = 'v1.x.x', -- version is optional, but recommended
       dependencies = { 'neovim/nvim-lspconfig' },
     },
+    -- Additional lua configuration, makes nvim stuff amazing!
     { 'folke/neodev.nvim', opts = {} },
     'b0o/schemastore.nvim'
   },
@@ -43,16 +38,9 @@ return {
       nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
       nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-      -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
       vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end)
 
-      -- Lesser used LSP functionality
       nmap('gD', vim.lsp.buf.type_definition, '[G]oto [D]eclaration')
-      nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-      nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-      nmap('<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, '[W]orkspace [L]ist Folders')
 
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -73,9 +61,7 @@ return {
         .. '/node_modules/@vue/typescript-plugin'
 
 
-    vim.lsp.set_log_level('WARN')
     -- EFM Language Server
-    -- local prettierd = require('efmls-configs.formatters.prettier_d')
     local prettierd = {
       formatCommand = 'prettierd "${INPUT}"',
       formatStdin = true,
@@ -83,29 +69,6 @@ return {
         string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('.prettierrc')),
       },
     }
-
-    local blackdclient = {
-      formatCommand = 'blackd-client',
-      formatStdin = true,
-      rootMarkers = 'manage.py'
-    }
-
-    -- local black = {
-    --   formatCommand = 'black --quiet --fast -',
-    --   formatStdin = true,
-    --   rootMarkers = 'manage.py'
-    -- }
-
-    local black = require('efmls-configs.formatters.black')
-
-    local flake8 = require('efmls-configs.linters.flake8')
-    -- {
-    --   lintCommand = 'flake8 --stdin-display-name ${INPUT} -',
-    --   lintSource = 'flake8',
-    --   lintStdin = true,
-    --   lintFormats = { '%f:%l:%c: %m' },
-    --   rootMarkers = 'manage.py'
-    -- }
 
     local shfmt = {
       formatCommand = 'shfmt -ci -s -bn',
@@ -126,7 +89,6 @@ return {
       typescript = { prettierd },
       javascript = { prettierd },
       typescriptreact = { prettierd },
-      python = { flake8, black },
       markdown = { prettierd },
       json = { prettierd },
       yaml = { prettierd },
@@ -135,21 +97,7 @@ return {
       sh = { shfmt, shellcheck },
     }
 
-    local venv_path = os.getenv('VIRTUAL_ENV')
-    local py_path = nil
-    -- decide which python executable to use for mypy
-    if venv_path ~= nil then
-      py_path = venv_path .. "/bin/python3"
-    else
-      py_path = vim.g.python3_host_prog
-    end
-
-
     local servers = {
-      -- clangd = {},
-      -- gopls = {},
-      -- pyright = {},
-      -- rust_analyzer = {},
       efm = {
         filetypes = vim.tbl_keys(efm_languages),
         settings = {
@@ -162,6 +110,7 @@ return {
           codeAction = true,
         },
       },
+
       volar = {
         filetypes = { 'vue' },
         init_options = {
@@ -170,6 +119,7 @@ return {
           }
         },
       },
+
       vtsls = {
         filetypes = { 'typescript', 'javascript', 'vue', "typescriptreact", "typescript.tsx" },
         enableMoveToFileCodeAction = true,
@@ -193,6 +143,7 @@ return {
           },
         },
       },
+
       bashls = {
         filetypes = { 'zsh', 'sh', 'bash' },
       },
@@ -201,8 +152,7 @@ return {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
-          -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-          -- diagnostics = { disable = { 'missing-fields' } },
+          diagnostics = { disable = { 'missing-fields' } },
         },
       },
 
@@ -233,47 +183,6 @@ return {
           },
         },
       },
-
-      basedpyright = {
-        settings = {
-          basedpyright = {
-            typeCheckingMode = "standard",
-            reportIncompatibleVariableOverride = false,
-            analysis = {
-              reportIncompatibleVariableOverride = false
-            }
-          },
-        }
-      },
-
-      -- pylsp = {
-      --   settings = {
-      --     pylsp = {
-      --       plugins = {
-      --         -- formatter options
-      --         -- black = { enabled = true },
-      --         -- autopep8 = { enabled = false },
-      --         -- yapf = { enabled = false },
-      --         -- linter options
-      --         -- pylint = { enabled = true, executable = "pylint" },
-      --         -- ruff = { enabled = false },
-      --         -- pyflakes = { enabled = false },
-      --         -- pycodestyle = { enabled = false },
-      --         -- type checker
-      --         pylsp_mypy = {
-      --           enabled = true,
-      --           overrides = { "--python-executable", py_path, true },
-      --           report_progress = true,
-      --           live_mode = true
-      --         },
-      --         -- auto-completion options
-      --         -- jedi_completion = { fuzzy = true },
-      --         -- import sorting
-      --         -- isort = { enabled = true },
-      --       },
-      --     },
-      --   },
-      -- }
     }
 
     -- Setup neovim lua configuration
@@ -281,7 +190,7 @@ return {
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    capabilities = require('blink-cmp').get_lsp_capabilities(capabilities)
 
     -- Ensure the servers above are installed
     local mason_lspconfig = require 'mason-lspconfig'
