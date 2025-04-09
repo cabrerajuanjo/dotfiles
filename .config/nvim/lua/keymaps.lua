@@ -74,3 +74,10 @@ vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>")
 vim.keymap.set("n", "<leader>li", "<cmd>LspInfo<CR>")
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+vim.keymap.set(
+    "n",
+    "<leader>el",
+    "oif (result.ok !== true) {<CR>}<Esc>?result<CR><Esc>viw<C-G>"
+)
+

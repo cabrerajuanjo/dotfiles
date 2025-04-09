@@ -38,12 +38,20 @@ return {
     },
     completion = {
       documentation = { auto_show = true },
-      menu = { draw = { treesitter = { 'lsp' } } }
+      menu = { draw = { treesitter = { 'lsp' } } },
+      accept = {
+        auto_brackets = {
+          kind_resolution = {
+            enabled = false,
+            blocked_filetypes = { 'typescript', 'javascript' }
+          }
+        }
+      }
     },
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'path', 'buffer' },
     },
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
