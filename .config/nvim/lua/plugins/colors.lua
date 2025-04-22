@@ -36,5 +36,10 @@ return {
     "zootedb0t/citruszest.nvim",
     lazy = false,
     priority = 1000,
-  }
+  },
+  { "bluz7 j1/vim-moonfly-colors",
+    name = "moonfly",
+    lazy = false,
+    priority = 1000 
+  },
 }

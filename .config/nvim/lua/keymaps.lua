@@ -78,6 +78,6 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set(
     "n",
     "<leader>el",
-    "oif (result.ok !== true) {<CR>}<Esc>?result<CR><Esc>viw<C-G>"
+    "oif (!result.ok) {<CR>}<Esc>?result<CR><Esc>viw<C-G>"
 )
 

@@ -19,6 +19,7 @@ return {
     -- require("telescope").extensions.rest.select_env()
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
+    pcall(require("telescope").load_extension, 'git_worktree')
 
     -- Telescope live_grep in git root
     -- Function to find the git root directory based on the current buffer's path
@@ -84,10 +85,13 @@ return {
     vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
+    vim.keymap.set('n', '<leader>st', require('telescope').extensions.git_worktree.git_worktrees,
+      { desc = '[S]earch Worktrees' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
     -- vim.keymap.set('n', '<leader>se', require('telescope').extensions.rest.select_env,
     -- { desc = '[S]earch RestNvim [E]nvironment' })
+    local actions = require "telescope.actions"
 
     return {
       defaults = {
@@ -106,7 +110,11 @@ return {
           i = {
             ['<C-u>'] = false,
             ['<C-d>'] = false,
+            ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist
           },
+          n = {
+            ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist
+          }
         },
       },
       pickers = {
