@@ -50,6 +50,7 @@ alias ogurl='open $(gurl)'
 alias n="npm"
 alias ni="npm install"
 alias nrd="npm run dev"
+alias nrsd="npm run start:dev"
 alias nrb="npm run build"
 alias nrt="npm run test"
 alias nrtw="npm run test:watch"
