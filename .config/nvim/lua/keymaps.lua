@@ -81,3 +81,13 @@ vim.keymap.set(
     "oif (!result.ok) {<CR>}<Esc>?result<CR><Esc>viw<C-G>"
 )
 
+vim.keymap.set(
+    "n",
+    "<leader>cl",
+    "yiwoconsole.log('', );<Esc>^f(f'p$F)P"
+)
+vim.keymap.set(
+    "x",
+    "<leader>cl",
+    "yoconsole.log('', );<Esc>^f(f'p$F)P"
+)
