@@ -38,6 +38,7 @@ return {
     },
     completion = {
       documentation = { auto_show = true },
+      keyword = { range = 'full' },
       menu = { draw = { treesitter = { 'lsp' } } },
       accept = {
         auto_brackets = {
