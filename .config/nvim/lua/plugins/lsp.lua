@@ -124,7 +124,14 @@ return {
         filetypes = { 'typescript', 'javascript', 'vue', "typescriptreact", "typescript.tsx" },
         enableMoveToFileCodeAction = true,
         autoUseWorkspaceTsdk = true,
+        updateImportsOnFileMove = true,
         settings = {
+          typescript = {
+            updateImportsOnFileMove = "prompt",
+          },
+          javascript = {
+            updateImportsOnFileMove = "prompt",
+          },
           vtsls = {
             tsserver = {
               globalPlugins = {
@@ -178,7 +185,13 @@ return {
       jsonls = {
         settings = {
           json = {
-            schemas = require("schemastore").json.schemas(),
+            schemas = require("schemastore").json.schemas {
+              extra = {
+                url = "https://raw.githubusercontent.com/mistweaverco/kulala.nvim/main/schemas/http-client.env.schema.json",
+                name = "HTTP Client env",
+                fileMatch = "http-client.env.json"
+              }
+            },
             validate = { enable = true },
           },
         },

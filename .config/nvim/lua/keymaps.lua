@@ -76,18 +76,18 @@ vim.keymap.set("n", "<leader>li", "<cmd>LspInfo<CR>")
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 vim.keymap.set(
-    "n",
-    "<leader>el",
-    "oif (!result.ok) {<CR>}<Esc>?result<CR><Esc>viw<C-G>"
+  "n",
+  "<leader>el",
+  "oif (!result.ok) {<CR>}<Esc>?result<CR><Esc>viw<C-G>"
 )
 
 vim.keymap.set(
-    "n",
-    "<leader>cl",
-    "yiwoconsole.log('', );<Esc>^f(f'p$F)P"
+  "n",
+  "<leader>cl",
+  "yiwoconsole.log('', );<Esc>^f(f'p$F)P"
 )
 vim.keymap.set(
-    "x",
-    "<leader>cl",
-    "yoconsole.log('', );<Esc>^f(f'p$F)P"
+  "x",
+  "<leader>cl",
+  "yoconsole.log('', );<Esc>^f(f'p$F)P"
 )

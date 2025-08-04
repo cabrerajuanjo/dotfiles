@@ -1,4 +1,4 @@
 [user]
     email = juancabrera@pormel.net
 [core]
-    sshCommand = "ssh -i ~/.ssh/work"
+    sshCommand = "ssh -i ~/.ssh/pormel"

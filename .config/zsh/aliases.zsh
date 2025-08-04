@@ -1,9 +1,3 @@
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
-
-alias szshconfig="source ~/.zshrc"
-alias sohmyzsh="source ~/.oh-my-zsh"
-
 # Gitman
 # alias gitman="node /Users/juanjosecabrera/work/drb-cl-gitman/dist/index.js"
 
@@ -13,6 +7,16 @@ n10="~/nvim104/bin/nvim"
 alias n11="$n11"
 alias n10="$n10"
 alias n.="$n11 ."
+
+alias zshconfig="$n11 ~/.zshrc"
+alias ohmyzsh="$n11 ~/.oh-my-zsh"
+
+alias szshconfig="source ~/.zshrc"
+alias sohmyzsh="source ~/.oh-my-zsh"
+
+
+#Lazysqlo
+alias lazysql="~/lazysql/lazysql"
 
 # Asume role
 # asumerole_path="~/work/work/utils/asume-role-aws-sh/asume-role-aws.sh"
@@ -73,6 +77,9 @@ alias k="kubectl"
 alias minik="kubectl --kubeconfig ~/.kube/config.minikube"
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 
+# AWS
+export AWS_SSO_BROWSER=external
+
 # GO
 export GOPATH=$HOME/golibs
 # export GOBIN=$HOME/go/bin
@@ -118,3 +125,4 @@ alias hyprshot="~/tools/Hyprshot/hyprshot"
 # nvm use default
 # Set keyboard distribution to us standard
 # setxkbmap 'us'
+
