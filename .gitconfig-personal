@@ -1,4 +1,4 @@
 [user]
     email = cabrera57juanjo@gmail.com
 [core]
-    sshCommand = "ssh -i ~/.ssh/work"
+    sshCommand = "ssh -i ~/.ssh/personal"
