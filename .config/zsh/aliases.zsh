@@ -48,7 +48,8 @@ alias lazysql="~/lazysql/lazysql"
 
 # Git
 alias gurl='git remote get-url origin | awk -F/ "{gsub(/^git@/, \"https://\"); gsub(/\\.git$/, \"\"); gsub(/\.com:/, \".com/\"); print}"'
-alias ogurl='open $(gurl)'
+# alias ogurl='open $(gurl)'
+alias ogurl='xdg-open $(gurl)'
 
 # NPM
 alias n="npm"
@@ -126,3 +127,5 @@ alias hyprshot="~/tools/Hyprshot/hyprshot"
 # Set keyboard distribution to us standard
 # setxkbmap 'us'
 
+# ZSH
+alias salias="alias | grep"
