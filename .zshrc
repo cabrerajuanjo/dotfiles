@@ -73,7 +73,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-vi-mode)
+plugins=(git zsh-vi-mode aws)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -132,7 +132,7 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-. "$HOME/.local/bin/env"
+# . "$HOME/.local/bin/env"
 
 # opencode
 export PATH=/home/juanjo/.opencode/bin:$PATH

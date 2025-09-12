@@ -1,0 +1,191 @@
+# Sway config converted from your i3 config
+# Reference: https://swaywm.org/
+
+### Mod key
+set $mod Mod1
+
+### Font
+font pango:monospace 10
+
+### Autostart (XDG autostart)
+# Use dex for Wayland:
+exec_always --no-startup-id dex --autostart --environment sway
+
+# Dark mode (prefer-­dark via GNOME setting if present)
+# You can keep this if you rely on GNOME settings:
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+### Idle/lock & power management (Wayland-native)
+# Locks on idle, turns displays off, locks before sleep
+exec_always --no-startup-id swayidle -w \
+  timeout 300   'swaylock -f -c 000000' \
+  timeout 600   'swaymsg "output * dpms off"' \
+  resume        'swaymsg "output * dpms on"' \
+  before-sleep  'swaylock -f -c 000000'
+
+### Network applet (works under Wayland/Xwayland)
+exec --no-startup-id nm-applet
+
+### Volume (ALSA via amixer; keep your original approach)
+set $refresh_i3status pkill -RTMIN+2 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+ && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%- && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle && $refresh_i3status
+
+### Mouse / floating
+floating_modifier $mod
+# (Sway supports drag on titlebar similarly; default behavior is fine)
+
+### Apps
+bindsym $mod+Return exec wezterm
+bindsym $mod+c kill
+bindsym $mod+r exec wofi --show drun
+
+### Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+### Move
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+### Split / layout
+bindsym $mod+v splitv
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+### Lock
+bindsym $mod+Shift+x exec swaylock -f -c 000000
+
+### Workspaces (keep your labels/icons)
+set $ws1 "1"
+set $ws2 "2  "
+set $ws3 "3 󰈹 "
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8  "
+set $ws9 "9  "
+set $ws10 "10  "
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Send specific apps to workspaces (Wayland-native app_id preferred)
+# WezTerm
+for_window [app_id="org.wezfurlong.wezterm"] move to workspace $ws2; workspace $ws2
+# Firefox
+for_window [app_id="firefox"] move to workspace $ws3; workspace $ws3
+# Chromium
+for_window [app_id="chromium"] move to workspace $ws8; workspace $ws8
+# (Fallback for Xwayland apps using WM_CLASS)
+for_window [class="org.wezfurlong.wezterm"] move to workspace $ws2
+for_window [class="firefox"] move to workspace $ws3
+for_window [class="Chromium"] move to workspace $ws8
+
+### Reload / restart / exit
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes, exit' 'swaymsg exit'
+
+### Resize mode
+# mode "resize" {
+#     bindsym h resize shrink width 10px
+#     bindsym j resize grow height 10px
+#     bindsym k resize shrink height 10px
+#     bindsym l resize grow width 10px
+#
+#     bindsym Left  resize shrink width 10px
+#     bindsym Down  resize grow height 10px
+#     bindsym Up    resize shrink height 10px
+#     bindsym Right resize grow width 10px
+#
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+#     bindsym $mod+r mode "default"
+# }
+# bindsym $mod+r mode "resize"
+
+### THEME (OneDark-ish)
+set $fg-color        #A7B7D6
+set $bg-color        #282C34
+set $contrast-color  #A7B7D6
+set $red-color       #e06c75
+set $green-color     #98c379
+set $yellow-color    #e5c07b
+set $blue-color      #61afef
+set $cyan-color      #56b6c2
+set $orange-color    #fc961f
+set $purple-color    #c678dd
+set $transparent     #00000000
+
+exec_always --no-startup-id waybar
+
+### Screenshots (Wayland tools: grim/slurp/wl-copy)
+# Full screen → file
+bindsym Print exec --no-startup-id grim "$HOME/Pictures/$(date +'%F_%T).png"
+# Active window → file (requires jq)
+bindsym $mod+Print exec --no-startup-id sh -c 'grim -g "$(swaymsg -t get_tree | jq -r ".. | select(.focused? == true).rect | \"\(.x),\(.y) \(.width)x\(.height)\"")" "$HOME/Pictures/$(date +\"%F_%T\").png"'
+# Region select → file
+bindsym Shift+Print exec --no-startup-id grim -g "$(slurp)" "$HOME/Pictures/$(date +'%F_%T').png"
+
+### Clipboard screenshots (to clipboard via wl-copy)
+bindsym Ctrl+Print exec --no-startup-id grim - | wl-copy --type image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id sh -c 'grim -g "$(swaymsg -t get_tree | jq -r ".. | select(.focused? == true).rect | \"\(.x),\(.y) \(.width)x\(.height)\"")" - | wl-copy --type image/png'
+bindsym Ctrl+Shift+Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy --type image/png
+
+### Wallpaper (Wayland)
+# Fill screen with image
+exec_always --no-startup-id swaybg -i /home/juanjo/Pictures/fringe-glyphs-fingerprint-hand.jpg -m fill
+
+### Window styling / gaps
+for_window [app_id="^.*"] border pixel 5
+default_floating_border normal 0
+default_border pixel 1
+smart_borders on
+gaps inner 8
+gaps outer 4
+# border_radius is not supported in upstream sway
+
+### Keyboard repeat (Wayland-native, replaces xset r rate)
+input * repeat_delay 250
+input * repeat_rate 50
