@@ -9,7 +9,6 @@ return {
         animate = {
           enabled = false
         }
-
       }
     },
     ---@class snacks.picker.Config
@@ -74,6 +73,19 @@ return {
         },
         grep = { hidden = true },
       },
+      -- format = function(item)
+      --   -- item.path: full path to file
+      --   -- item.lnum: line number (for grep results)
+      --   -- item.col: column number (for grep results)
+      --   -- item.text: the matched line text
+      --
+      --   -- Example: show only filename and line number
+      --   local filename = vim.fn.fnamemodify(item.path, ":t")
+      --   if item.lnum then
+      --     return string.format("%s:%d", filename, item.lnum)
+      --   end
+      --   return filename
+      -- end,
       -- actions = {
       --       label = { after = { 0, 0 } },
       --       search = {
@@ -116,7 +128,7 @@ return {
     -- Grep
     -- { "<leader>sb",      function() Snacks.picker.lines() end,        desc = "Buffer Lines" },
     -- { "<leader>sB",      function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
-    { "<leader>sg",      function() Snacks.picker.grep() end,                                    desc = "Grep" },
+    { "<leader>sg",      function() Snacks.picker.grep({ config }) end,                          desc = "Grep" },
     -- { "<leader>sw",      function() Snacks.picker.grep_word() end,    desc = "Visual selection or word", mode = { "n", "x" } },
   },
 }

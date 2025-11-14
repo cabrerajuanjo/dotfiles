@@ -44,7 +44,7 @@ return {
 
       -- Create a command `:Format` local to the LSP buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format()
+        vim.lsp.buf.format { filter = function(client) return client.name ~= "vtsls" end }
       end, { desc = 'Format current buffer with LSP' })
     end
 
@@ -86,12 +86,12 @@ return {
     }
 
     local efm_languages = {
-      typescript = { prettierd },
-      javascript = { prettierd },
-      typescriptreact = { prettierd },
-      markdown = { prettierd },
-      json = { prettierd },
-      yaml = { prettierd },
+      -- typescript = { prettierd },
+      -- javascript = { prettierd },
+      -- typescriptreact = { prettierd },
+      -- markdown = { prettierd },
+      -- json = { prettierd },
+      -- yaml = { prettierd },
       zsh = { shfmt, shellcheck },
       bash = { shfmt, shellcheck },
       sh = { shfmt, shellcheck },
@@ -163,8 +163,16 @@ return {
         },
       },
 
-      eslint = {
-        filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+      -- eslint = {
+      --   filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+      -- },
+
+      biome = {
+        filetypes = {
+          'javascript', 'javascriptreact', 'javascript.jsx',
+          'typescript', 'typescriptreact', 'typescript.tsx',
+          'json', 'jsonc'
+        },
       },
 
       yamlls = {
@@ -207,6 +215,8 @@ return {
 
     -- Ensure the servers above are installed
     local mason_lspconfig = require 'mason-lspconfig'
+    local lspconfig = require('lspconfig')
+    local util = require('lspconfig.util')
 
     mason_lspconfig.setup {
       ensure_installed = vim.tbl_keys(servers),
@@ -214,14 +224,20 @@ return {
 
     mason_lspconfig.setup_handlers {
       function(server_name)
-        require('lspconfig')[server_name].setup {
+        local cfg = {
           capabilities = capabilities,
           on_attach = on_attach,
           init_options = (servers[server_name] or {}).init_options,
           filetypes = (servers[server_name] or {}).filetypes,
           settings = (servers[server_name] or {}).settings,
         }
-      end,
-    }
+
+        -- Prefer project roots with biome config
+        if server_name == 'biome' then
+          cfg.root_dir = util.root_pattern('biome.json', 'biome.jsonc', 'package.json', '.git')
+        end
+
+        lspconfig[server_name].setup(cfg)
+      end, }
   end
 }

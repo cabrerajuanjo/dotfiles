@@ -7,6 +7,9 @@ set $mod Mod1
 ### Font
 font pango:monospace 10
 
+### For file explorer
+exec systemctl --user import-environment DISPLAY
+
 ### Autostart (XDG autostart)
 # Use dex for Wayland:
 exec_always --no-startup-id dex --autostart --environment sway
@@ -35,6 +38,14 @@ bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle && $refresh_
 ### Mouse / floating
 floating_modifier $mod
 # (Sway supports drag on titlebar similarly; default behavior is fine)
+
+### Autostart apps
+exec mako
+exec kitty
+exec vivaldi-stable
+exec evolution
+exec vivaldi --profile-directory=Default --app-id=cifhbcnohmdccbgoicgdjpfamggdegmo 
+# exec vivaldi --profile-directory=Default --app-id=mjoklplbddabcmpepnokjaffbmgbkkgg
 
 ### Apps
 bindsym $mod+Return exec wezterm
@@ -77,11 +88,11 @@ bindsym $mod+Shift+x exec swaylock -f -c 000000
 ### Workspaces (keep your labels/icons)
 set $ws1 "1"
 set $ws2 "2  "
-set $ws3 "3 󰈹 "
+set $ws3 "3  "
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
-set $ws7 "7"
+set $ws7 "7 󰇮 "
 set $ws8 "8  "
 set $ws9 "9  "
 set $ws10 "10  "
@@ -111,21 +122,36 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Send specific apps to workspaces (Wayland-native app_id preferred)
-# WezTerm
-for_window [app_id="org.wezfurlong.wezterm"] move to workspace $ws2; workspace $ws2
-# Firefox
-for_window [app_id="firefox"] move to workspace $ws3; workspace $ws3
-# Chromium
-for_window [app_id="chromium"] move to workspace $ws8; workspace $ws8
-# (Fallback for Xwayland apps using WM_CLASS)
-for_window [class="org.wezfurlong.wezterm"] move to workspace $ws2
-for_window [class="firefox"] move to workspace $ws3
-for_window [class="Chromium"] move to workspace $ws8
+# In order to get the app_id's, execute the following
+# swaymsg -t get_tree | jq '.. | objects | select(.type=="con" and .pid?) | {pid: .pid, app_id: .app_id, name: .name}'
+# Teams
+for_window [app_id="vivaldi-cifhbcnohmdccbgoicgdjpfamggdegmo-Default"] move to workspace $ws1; workspace $ws1
+# Github
+# for_window [app_id="vivaldi-mjoklplbddabcmpepnokjaffbmgbkkgg-Default"] move to workspace $ws8; workspace $ws8
+# Kitty
+for_window [app_id="kitty"] move to workspace $ws2; workspace $ws2
+for_window [class="Postman"] move to workspace $ws6; workspace $ws6
+# Browsers
+for_window [app_id="vivaldi-stable"] move to workspace $ws3; workspace $ws3
+for_window [app_id="org.gnome.Evolution"] move to workspace $ws7; workspace $ws7
 
 ### Reload / restart / exit
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -b 'Yes, exit' 'swaymsg exit'
+
+output eDP-1 pos 0 0
+output HDMI-A-1 pos 1920 0
+
+workspace $ws1 output eDP-1
+workspace $ws2 output HDMI-A-1
+workspace $ws3 output HDMI-A-1
+workspace $ws4 output HDMI-A-1
+workspace $ws5 output HDMI-A-1
+workspace $ws6 output HDMI-A-1
+workspace $ws7 output HDMI-A-1
+workspace $ws8 output HDMI-A-1
+workspace $ws9 output HDMI-A-1
 
 ### Resize mode
 # mode "resize" {
@@ -158,24 +184,24 @@ set $orange-color    #fc961f
 set $purple-color    #c678dd
 set $transparent     #00000000
 
-exec_always --no-startup-id waybar
+exec --no-startup-id waybar
 
 ### Screenshots (Wayland tools: grim/slurp/wl-copy)
 # Full screen → file
-bindsym Print exec --no-startup-id grim "$HOME/Pictures/$(date +'%F_%T).png"
-# Active window → file (requires jq)
-bindsym $mod+Print exec --no-startup-id sh -c 'grim -g "$(swaymsg -t get_tree | jq -r ".. | select(.focused? == true).rect | \"\(.x),\(.y) \(.width)x\(.height)\"")" "$HOME/Pictures/$(date +\"%F_%T\").png"'
-# Region select → file
-bindsym Shift+Print exec --no-startup-id grim -g "$(slurp)" "$HOME/Pictures/$(date +'%F_%T').png"
+# bindsym Print exec --no-startup-id grim "$HOME/Imágenes/Capturas de pantalla/$(date +'%F_%T).png"
+# # Active window → file (requires jq)
+# bindsym $mod+Print exec --no-startup-id sh -c 'grim -g "$(swaymsg -t get_tree | jq -r ".. | select(.focused? == true).rect | \"\(.x),\(.y) \(.width)x\(.height)\"")" "$HOME/Pictures/$(date +\"%F_%T\").png"'
+# # Region select → file
+# bindsym Shift+Print exec --no-startup-id grim -g "$(slurp)" "$HOME/Pictures/$(date +'%F_%T').png"
 
 ### Clipboard screenshots (to clipboard via wl-copy)
-bindsym Ctrl+Print exec --no-startup-id grim - | wl-copy --type image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id sh -c 'grim -g "$(swaymsg -t get_tree | jq -r ".. | select(.focused? == true).rect | \"\(.x),\(.y) \(.width)x\(.height)\"")" - | wl-copy --type image/png'
-bindsym Ctrl+Shift+Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy --type image/png
+# bindsym Ctrl+Print exec --no-startup-id grim - | wl-copy --type image/png
+# bindsym Ctrl+$mod+Print exec --no-startup-id sh -c 'grim -g "$(swaymsg -t get_tree | jq -r ".. | select(.focused? == true).rect | \"\(.x),\(.y) \(.width)x\(.height)\"")" - | wl-copy --type image/png'
+bindsym Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy --type image/png
 
 ### Wallpaper (Wayland)
 # Fill screen with image
-exec_always --no-startup-id swaybg -i /home/juanjo/Pictures/fringe-glyphs-fingerprint-hand.jpg -m fill
+exec_always --no-startup-id swaybg -i /home/juanjo/Imágenes/wallpapers/fringe-hand-wp.jpeg -m fill
 
 ### Window styling / gaps
 for_window [app_id="^.*"] border pixel 5
@@ -189,3 +215,5 @@ gaps outer 4
 ### Keyboard repeat (Wayland-native, replaces xset r rate)
 input * repeat_delay 250
 input * repeat_rate 50
+input * xkb_layout us 
+input * xkb_variant altgr-intl

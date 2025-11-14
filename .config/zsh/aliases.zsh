@@ -52,13 +52,14 @@ alias gurl='git remote get-url origin | awk -F/ "{gsub(/^git@/, \"https://\"); g
 alias ogurl='xdg-open $(gurl)'
 
 # NPM
-alias n="npm"
-alias ni="npm install"
-alias nrd="npm run dev"
-alias nrsd="npm run start:dev"
-alias nrb="npm run build"
-alias nrt="npm run test"
-alias nrtw="npm run test:watch"
+alias n="pnpm"
+alias ni="pnpm install"
+alias nrd="pnpm run dev"
+alias nrsd="pnpm run start:dev"
+alias nrb="pnpm run build"
+alias nrtu="pnpm run test:unit"
+alias nrtuc="pnpm run test:unit:coverage"
+alias nrte="pnpm run test:e2e"
 
 # TS-Loger
 export ENABLED_LOGGER=true
