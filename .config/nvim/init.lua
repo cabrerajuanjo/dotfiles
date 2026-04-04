@@ -1,6 +1,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+pcall(function()
+  require('vim._core.ui2').enable()
+end)
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 require 'lazy-bootstrap'
 require('lazy').setup("plugins", {})

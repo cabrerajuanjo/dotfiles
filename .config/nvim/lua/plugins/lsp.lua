@@ -1,67 +1,79 @@
 -- [[ Configure LSP ]]
 -- vim: ts=2 sts=2 sw=2 et
 return {
-  -- LSP Configuration & Plugins
   'neovim/nvim-lspconfig',
   dependencies = {
-    -- Automatically install LSPs to stdpath for neovim
-    { 'williamboman/mason.nvim',           opts = {} },
+    { 'williamboman/mason.nvim', opts = {} },
     { 'williamboman/mason-lspconfig.nvim', opts = {} },
-    { 'j-hui/fidget.nvim',                 opts = {} },
+    { 'j-hui/fidget.nvim', opts = {} },
     {
       'creativenull/efmls-configs-nvim',
-      version = 'v1.x.x', -- version is optional, but recommended
+      version = 'v1.x.x',
       dependencies = { 'neovim/nvim-lspconfig' },
     },
-    -- Additional lua configuration, makes nvim stuff amazing!
-    { 'folke/neodev.nvim', opts = {} },
-    'b0o/schemastore.nvim'
+    'b0o/schemastore.nvim',
   },
   config = function()
-    local on_attach = function(_, bufnr)
-      local nmap = function(keys, func, desc)
-        if desc then
-          desc = 'LSP: ' .. desc
-        end
-
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    local format_filter = function(client)
+      return client.name ~= 'vtsls'
+    end
+    local function normalize_root_dir(root_dir, single_file_support)
+      if type(root_dir) ~= 'function' then
+        return root_dir
       end
 
-      nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-      nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-      nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-      nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-      nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-      nmap('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-      nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-      nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-      nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-      vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end)
-
-      nmap('gD', vim.lsp.buf.type_definition, '[G]oto [D]eclaration')
-
-      -- Create a command `:Format` local to the LSP buffer
-      vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format { filter = function(client) return client.name ~= "vtsls" end }
-      end, { desc = 'Format current buffer with LSP' })
+      return function(bufnr, on_dir)
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        local root = root_dir(bufname, bufnr)
+        if not root and single_file_support then
+          root = bufname ~= '' and vim.fs.dirname(bufname) or vim.uv.cwd()
+        end
+        if root then
+          on_dir(root)
+        end
+      end
     end
 
-    -- mason-lspconfig requires that these setup functions are called in this order
-    -- before setting up the servers.
+    local function with_default_config(name, config)
+      local default_config = require('lspconfig.configs.' .. name).default_config or {}
+      default_config = vim.deepcopy(default_config)
+      default_config.root_dir = normalize_root_dir(default_config.root_dir, default_config.single_file_support)
+      return vim.tbl_deep_extend('force', default_config, config or {})
+    end
+
+    local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('juanjo-lsp-attach', { clear = true }),
+      callback = function(event)
+        local bufnr = event.buf
+        local snacks = require('snacks')
+        local map = function(mode, lhs, rhs, desc)
+          vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+        end
+
+        map('n', '<leader>rn', vim.lsp.buf.rename, 'LSP: [R]e[n]ame')
+        map('n', '<leader>ca', vim.lsp.buf.code_action, 'LSP: [C]ode [A]ction')
+        map('n', 'gd', function() snacks.picker.lsp_definitions() end, 'LSP: [G]oto [D]efinition')
+        map('n', 'gr', function() snacks.picker.lsp_references() end, 'LSP: [G]oto [R]eferences')
+        map('n', 'gI', function() snacks.picker.lsp_implementations() end, 'LSP: [G]oto [I]mplementation')
+        map('n', '<leader>D', function() snacks.picker.lsp_type_definitions() end, 'LSP: Type [D]efinition')
+        map('n', '<leader>ds', function() snacks.picker.lsp_symbols() end, 'LSP: [D]ocument [S]ymbols')
+        map('n', '<leader>ws', function() snacks.picker.lsp_workspace_symbols() end, 'LSP: [W]orkspace [S]ymbols')
+        map('n', 'gD', vim.lsp.buf.declaration, 'LSP: [G]oto [D]eclaration')
+        map('i', '<C-h>', vim.lsp.buf.signature_help, 'LSP: Signature Help')
+
+        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
+          vim.lsp.buf.format { filter = format_filter }
+        end, { desc = 'Format current buffer with LSP' })
+      end,
+    })
+
     require('mason').setup()
-    require('mason-lspconfig').setup()
-    --
-    -- Vue typescript plugin
-    local vue_typescript_plugin = require('mason-registry')
-        .get_package('vue-language-server')
-        :get_install_path()
-        .. '/node_modules/@vue/language-server'
-        .. '/node_modules/@vue/typescript-plugin'
 
+    local mason_lspconfig = require('mason-lspconfig')
+    local vue_typescript_plugin = vim.fn.expand '$MASON/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
 
-    -- EFM Language Server
     local prettierd = {
       formatCommand = 'prettierd "${INPUT}"',
       formatStdin = true,
@@ -97,147 +109,134 @@ return {
       sh = { shfmt, shellcheck },
     }
 
-    local servers = {
-      efm = {
-        filetypes = vim.tbl_keys(efm_languages),
-        settings = {
-          rootMarkers = { '.git/', 'manage.py' },
-          languages = efm_languages,
-        },
-        init_options = {
-          documentFormatting = true,
-          documentRangeFormatting = true,
-          codeAction = true,
+    vim.lsp.config('*', {
+      capabilities = capabilities,
+    })
+
+    vim.lsp.config('efm', with_default_config('efm', {
+      filetypes = vim.tbl_keys(efm_languages),
+      init_options = {
+        documentFormatting = true,
+        documentRangeFormatting = true,
+        codeAction = true,
+      },
+      settings = {
+        rootMarkers = { '.git/', 'manage.py' },
+        languages = efm_languages,
+      },
+    }))
+
+    vim.lsp.config('volar', with_default_config('volar', {
+      filetypes = { 'vue' },
+      init_options = {
+        vue = {
+          hybridMode = true,
         },
       },
+    }))
 
-      volar = {
-        filetypes = { 'vue' },
-        init_options = {
-          vue = {
-            hybridMode = true
-          }
+    vim.lsp.config('vtsls', with_default_config('vtsls', {
+      filetypes = { 'typescript', 'javascript', 'vue', 'typescriptreact', 'typescript.tsx' },
+      settings = {
+        typescript = {
+          updateImportsOnFileMove = 'prompt',
         },
-      },
-
-      vtsls = {
-        filetypes = { 'typescript', 'javascript', 'vue', "typescriptreact", "typescript.tsx" },
-        enableMoveToFileCodeAction = true,
-        autoUseWorkspaceTsdk = true,
-        updateImportsOnFileMove = true,
-        settings = {
-          typescript = {
-            updateImportsOnFileMove = "prompt",
+        javascript = {
+          updateImportsOnFileMove = 'prompt',
+        },
+        vtsls = {
+          enableMoveToFileCodeAction = true,
+          autoUseWorkspaceTsdk = true,
+          experimental = {
+            completion = {
+              enableServerSideFuzzyMatch = true,
+            },
           },
-          javascript = {
-            updateImportsOnFileMove = "prompt",
-          },
-          vtsls = {
-            tsserver = {
-              globalPlugins = {
-                {
-                  name = "@vue/typescript-plugin",
-                  location = vue_typescript_plugin,
-                  languages = { 'vue' }
-                },
+          tsserver = {
+            globalPlugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = vue_typescript_plugin,
+                languages = { 'vue' },
               },
             },
           },
         },
-        experimental = {
-          completion = {
-            enableServerSideFuzzyMatch = true,
-          },
-        },
       },
+    }))
 
-      bashls = {
-        filetypes = { 'zsh', 'sh', 'bash' },
-      },
+    vim.lsp.config('bashls', with_default_config('bashls', {
+      filetypes = { 'zsh', 'sh', 'bash' },
+    }))
 
-      lua_ls = {
+    vim.lsp.config('lua_ls', with_default_config('lua_ls', {
+      settings = {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
           diagnostics = { disable = { 'missing-fields' } },
         },
       },
+    }))
 
-      -- eslint = {
-      --   filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
-      -- },
-
-      biome = {
-        filetypes = {
-          'javascript', 'javascriptreact', 'javascript.jsx',
-          'typescript', 'typescriptreact', 'typescript.tsx',
-          'json', 'jsonc'
-        },
+    vim.lsp.config('biome', with_default_config('biome', {
+      filetypes = {
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx',
+        'json',
+        'jsonc',
       },
+      root_markers = { 'biome.json', 'biome.jsonc', 'package.json', '.git' },
+    }))
 
-      yamlls = {
-        settings = {
-          yaml = {
-            schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like ignore.
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = "",
-            },
-            schemas = require("schemastore").yaml.schemas(),
+    vim.lsp.config('yamlls', with_default_config('yamlls', {
+      settings = {
+        yaml = {
+          schemaStore = {
+            enable = false,
+            url = '',
           },
+          schemas = require('schemastore').yaml.schemas(),
         },
       },
+    }))
 
-      jsonls = {
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas {
-              extra = {
-                url = "https://raw.githubusercontent.com/mistweaverco/kulala.nvim/main/schemas/http-client.env.schema.json",
-                name = "HTTP Client env",
-                fileMatch = "http-client.env.json"
-              }
+    vim.lsp.config('jsonls', with_default_config('jsonls', {
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas {
+            extra = {
+              {
+                url = 'https://raw.githubusercontent.com/mistweaverco/kulala.nvim/main/schemas/http-client.env.schema.json',
+                name = 'HTTP Client env',
+                fileMatch = 'http-client.env.json',
+              },
             },
-            validate = { enable = true },
           },
+          validate = { enable = true },
         },
       },
+    }))
+
+    local servers = {
+      'bashls',
+      'biome',
+      'efm',
+      'jsonls',
+      'lua_ls',
+      'volar',
+      'vtsls',
+      'yamlls',
     }
-
-    -- Setup neovim lua configuration
-    require('neodev').setup()
-
-    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('blink-cmp').get_lsp_capabilities(capabilities)
-
-    -- Ensure the servers above are installed
-    local mason_lspconfig = require 'mason-lspconfig'
-    local lspconfig = require('lspconfig')
-    local util = require('lspconfig.util')
 
     mason_lspconfig.setup {
-      ensure_installed = vim.tbl_keys(servers),
+      ensure_installed = servers,
     }
 
-    mason_lspconfig.setup_handlers {
-      function(server_name)
-        local cfg = {
-          capabilities = capabilities,
-          on_attach = on_attach,
-          init_options = (servers[server_name] or {}).init_options,
-          filetypes = (servers[server_name] or {}).filetypes,
-          settings = (servers[server_name] or {}).settings,
-        }
-
-        -- Prefer project roots with biome config
-        if server_name == 'biome' then
-          cfg.root_dir = util.root_pattern('biome.json', 'biome.jsonc', 'package.json', '.git')
-        end
-
-        lspconfig[server_name].setup(cfg)
-      end, }
-  end
+    vim.lsp.enable(servers)
+  end,
 }

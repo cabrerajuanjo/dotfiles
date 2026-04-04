@@ -31,6 +31,7 @@ vim.wo.signcolumn = 'yes'
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 500
+vim.o.cmdheight = 0
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -66,7 +67,7 @@ vim.opt.cursorcolumn = false
 
 vim.opt.foldcolumn = "1"
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldtext = ""
 vim.opt.fillchars = "fold: "
 vim.opt.foldenable = true

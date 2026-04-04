@@ -27,8 +27,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- vim: ts=2 sts=2 sw=2 et
 -- Undo tree keymap
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-
+vim.keymap.set("n", "<leader>u", function()
+  vim.cmd('packadd nvim.undotree')
+  vim.cmd.Undotree()
+end, { desc = 'Open Undo Tree' })
 
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 -- Explorer keymap

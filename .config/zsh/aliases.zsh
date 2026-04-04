@@ -2,9 +2,11 @@
 # alias gitman="node /Users/juanjosecabrera/work/drb-cl-gitman/dist/index.js"
 
 # Neovim
+n12="~/nvim12/bin/nvim"
 n11="~/nvim11/bin/nvim"
 n10="~/nvim104/bin/nvim"
 alias n11="$n11"
+alias n12="$n12"
 alias n10="$n10"
 alias n.="$n11 ."
 
