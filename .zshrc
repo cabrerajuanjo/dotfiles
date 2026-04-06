@@ -73,7 +73,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-vi-mode aws)
+plugins=(git zsh-vi-mode aws  emoji)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -128,11 +128,15 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# Add a completions directory (directory, not the file)
+fpath=(~/.config/zsh/completions $fpath)
 
-# . "$HOME/.local/bin/env"
+autoload -Uz compinit
+compinit
 
-# opencode
-export PATH=/home/juanjo/.opencode/bin:$PATH
+# (optional but helps make it explicit)
+autoload -Uz _emoji_shortcode
+
+zstyle ':completion:*' completer _emoji_shortcode _complete
+zstyle ':completion:*:*:git:*' completer _emoji_shortcode _complete
+source ~/completion-for-pnpm.zsh

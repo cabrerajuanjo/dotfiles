@@ -1,11 +1,14 @@
 // -*- mode: jsonc -*-
 {
+    "$schema": "http://github.com/Magniquick/waybar-config-schema",
     // "layer": "bottom", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 30, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (4px)
-    "output": ["HDMI-A-1"],
+    "output": [
+        "HDMI-A-1"
+    ],
     // Choose the order of the modules
     "modules-left": [
         "sway/workspaces",
@@ -25,13 +28,13 @@
         "cpu",
         "memory",
         "temperature",
-        "backlight",
+        // "backlight",
         "keyboard-state",
         "hyprland/language",
-        // "battery",
+        "battery",
         // "battery#bat2",
         "clock",
-        // "custom/power"
+        // "custom/power",
         "tray"
     ],
     // Modules configuration
@@ -51,6 +54,27 @@
             "urgent": "",
             "focused": "",
             "default": ""
+        }
+    },
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{name}: {icon}",
+        "format-icons": {
+            "1": "󰊻",
+            "2": "",
+            "3": "",
+            // "4": "",
+            "5": "",
+            "6": "",
+            "7": "󰇮",
+            // "8": "󰇮",
+            "9": "󱞁",
+            // "0": "󱞁",
+            "urgent": "",
+            "focused": ""
+            // "default": ""
         }
     },
     "keyboard-state": {
@@ -88,10 +112,15 @@
     },
     "clock": {
         "timezone": "America/Montevideo",
-        "format": "{:%d-%m-%y %T}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%d-%m-%Y}",
-        "interval": 1
+        "locale": "es_UY.UTF-8",
+        "interval": 1,
+        "format": "{:%a %d-%m-%y %T}",
+        "format-alt": "{:%A %d %B %Y}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1
+        }
     },
     "cpu": {
         "format": "{usage}% ",
@@ -101,9 +130,9 @@
         "format": "{}% "
     },
     "temperature": {
-        "thermal-zone": 6,
+        "thermal-zone": 4,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
+        "critical-threshold": 85,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
         "format-icons": [
@@ -112,7 +141,8 @@
             "",
             "",
             ""
-        ]
+        ],
+        "interval": 2
     },
     "backlight": {
         // "device": "acpi_video1",

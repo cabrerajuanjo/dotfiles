@@ -11,7 +11,7 @@ else
 				echo "$dir"
 			fi
 		done
-		find ~/dotfiles -type d -maxdepth 0
+		fdfind --type d dotfiles ~
 	) | fzf)
 fi
 

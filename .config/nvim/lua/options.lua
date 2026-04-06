@@ -82,3 +82,4 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.matchpairs:append("<:>")
+vim.cmd.colorscheme "catppuccin"

@@ -12,5 +12,8 @@ return {
     global_keymaps_prefix = "<leader>R",
     kulala_keymaps_prefix = "",
     default_env = "local",
+    ui = {
+      max_response_size = 1048576,
+    }
   },
 }

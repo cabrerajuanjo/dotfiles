@@ -8,7 +8,7 @@ n10="~/nvim104/bin/nvim"
 alias n11="$n11"
 alias n12="$n12"
 alias n10="$n10"
-alias n.="$n11 ."
+alias n.="$n12 ."
 
 alias zshconfig="$n11 ~/.zshrc"
 alias ohmyzsh="$n11 ~/.oh-my-zsh"
@@ -37,6 +37,10 @@ alias lazysql="~/lazysql/lazysql"
 
 # VPN Connection script
 
+vpnconnect() {
+	xfreerdp /home/juanjo/Descargas/$1 /u:"jucabrera@edenor.com" /gu:"jucabrera@edenor.com" /size:1600x900 /cert-ignore
+}
+
 # export VPN_USERNAME=""
 # export VPN_HOST_NAME=""
 # export VPN_GROUP=""
@@ -55,6 +59,7 @@ alias ogurl='xdg-open $(gurl)'
 
 # NPM
 alias n="pnpm"
+alias nr="pnpm run"
 alias ni="pnpm install"
 alias nrd="pnpm run dev"
 alias nrsd="pnpm run start:dev"
@@ -108,19 +113,17 @@ export REDIS_LOCAL="localhost:6379"
 export REDIS_STG=""
 export REDIS_PROD=""
 
-# # Nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Vial
-alias vial="~/Vial-v0.7.1-x86_64.AppImage &"
+alias vial="~/Vial-v0.7.5-x86_64.AppImage &"
 
 # Django env
 alias djangoEnv="source ~/.virtualenvs/wiq-web/bin/activate"
 if [ -f ./manage.py ]; then
     djangoEnv
 fi
+
+# 7z
+alias 7zz="7z"
 
 
 # Screenshot tool Hyprshoot
@@ -132,3 +135,18 @@ alias hyprshot="~/tools/Hyprshot/hyprshot"
 
 # ZSH
 alias salias="alias | grep"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# . "$HOME/.local/bin/env"
+
+# opencode
+export PATH=/home/juanjo/.opencode/bin:$PATH
+
+# # Nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

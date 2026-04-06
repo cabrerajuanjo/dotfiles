@@ -1,0 +1,42 @@
+#compdef _emoji_shortcode
+# Complete gitmoji shortcodes like :bug: when the current word starts with ":"
+
+local cur="${words[CURRENT]}"
+
+# Only run for words that look like :b... (avoid affecting normal completion)
+[[ "$cur" == :* ]] || return 1
+
+local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+local cache_file="${cache_dir}/gitmoji-candidates.txt"
+local max_age=$(( 60*60*24 ))  # 1 day
+
+mkdir -p "$cache_dir"
+
+# Refresh cache if missing or too old (Linux stat)
+local now mtime
+now=$(date +%s)
+mtime=0
+if [[ -f "$cache_file" ]]; then
+  mtime=$(stat -c %Y "$cache_file" 2>/dev/null || echo 0)
+fi
+
+if [[ ! -f "$cache_file" || $((now - mtime)) -gt $max_age ]]; then
+  if command -v jq >/dev/null 2>&1; then
+    curl -fsSL https://gitmoji.dev/api/gitmojis \
+      | jq -r '.gitmojis[].code' \
+      >| "$cache_file" 2>/dev/null
+  else
+    # Fallback without jq
+    curl -fsSL https://gitmoji.dev/api/gitmojis \
+      | sed -n 's/.*"code":[[:space:]]*"\(:[^"]\+:\)".*/\1/p' \
+      >| "$cache_file" 2>/dev/null
+  fi
+fi
+
+# Load candidates (if cache exists)
+[[ -f "$cache_file" ]] || return 1
+local -a candidates
+candidates=("${(@f)$(<"$cache_file")}")
+
+# Offer only matching ones
+compadd -Q -S '' -- ${(M)candidates:#${cur}*}

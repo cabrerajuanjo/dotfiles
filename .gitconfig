@@ -8,23 +8,32 @@
 	ui = true
 [core]
 	editor = vim
+	pager = delta
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    line-numbers = true
+    true-color = always
+
 [alias]
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
 	unstage = restore --staged
 	; l = log --pretty=format:'%C(yellow)%h\ %ad%Cred%d\ %Creset%s%Cblue\ [%cn]%Cgreen\ [%ce]' --decorate --date=short
-[diff]
-    tool = kitty
-    guitool = kitty.gui
-[difftool]
-    prompt = false
-    trustExitCode = true
-[difftool "kitty"]
-    cmd = kitten diff $LOCAL $REMOTE
-[difftool "kitty.gui"]
-    cmd = kitten diff $LOCAL $REMOTE
+[interactive]
+    diffFilter = delta --color-only
+; [diff]
+;     tool = kitty
+;     guitool = kitty.gui
+; [difftool]
+;     prompt = false
+;     trustExitCode = true
+; [difftool "kitty"]
+;     cmd = kitten diff $LOCAL $REMOTE
+; [difftool "kitty.gui"]
+;     cmd = kitten diff $LOCAL $REMOTE
+
+[merge]
+    conflictStyle = zdiff3
 
 [includeIf "gitdir:~/work/"]
     path = ~/.gitconfig-work
